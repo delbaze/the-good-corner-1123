@@ -47,7 +47,7 @@ router.get("/find/:id", function (req: Request, res: Response) {
 
 router.patch("/update/:id", function (req: Request, res: Response) {
   const id = +req.params.id;
-  const data: Ad = req.body;
+  const data: Partial<Ad> = req.body;
   //! prévoir que on envoi pas tout le data, mais que on envoi que les clés qui ont été renseignées
   if (!data) {
     return res
