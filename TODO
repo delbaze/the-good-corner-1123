@@ -1,3 +1,3 @@
-☐ Créer une interface Category (id, name, en base de données ads[])
-☐ Créer des données statiques 
-☐ Créer le CRUD (Création, Récupération (liste et 1 categorie) update, et le delete)
+✔ Créer une interface Category (id, name, en base de données ads[]) @done(23-11-14 15:07)
+✔ Créer des données statiques @done(23-11-14 15:08)
+✔ Créer le CRUD (Création, Récupération (liste et 1 categorie) update, et le delete) @done(23-11-14 16:33)

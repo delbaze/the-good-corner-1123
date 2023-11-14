@@ -1,4 +1,5 @@
 import { Ad } from "./types/ads";
+import { Category } from "./types/categories";
 
 const ads: Ad[] = [
   {
@@ -27,4 +28,19 @@ const ads: Ad[] = [
   },
 ];
 
-export { ads };
+const categories: Category[] = [
+  {
+    id: 1,
+    name: "Voitures",
+  },
+  {
+    id: 2,
+    name: "Loisirs",
+  },
+  {
+    id: 3,
+    name: "Mode",
+  },
+];
+
+export { ads, categories };

@@ -59,17 +59,17 @@ router.patch("/update/:id", function (req: Request, res: Response) {
     return res
       .status(404)
       .send({ message: "L'annonce n'existe pas", success: false });
-  } else {
-    ads[updateIndex] = { ...ads[updateIndex], ...data };
-
-    res.send(ads[updateIndex]);
   }
+  ads[updateIndex] = { ...ads[updateIndex], ...data };
+  res.send(ads[updateIndex]);
 });
 router.delete("/delete/:id", function (req: Request, res: Response) {
   const id = +req.params.id;
   const index = ads.findIndex((ad) => ad.id === id);
   if (index === -1) {
-    return res.status(404).send("not found");
+    return res
+      .status(404)
+      .send({ message: "L'annonce n'existe pas", success: false });
   }
   ads.splice(index, 1);
   res.send(ads);
