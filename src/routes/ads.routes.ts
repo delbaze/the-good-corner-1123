@@ -1,12 +1,12 @@
 import { Router, Request, Response } from "express";
-import { Ad } from "../types/ads";
+import { Ad, AdCreateInput } from "../types/ads";
 import { ads } from "../data";
 import AdServices from "../services/ads.services";
 const router = Router();
 
-router.post("/create", function (req: Request, res: Response) {
+router.post("/create", async function (req: Request, res: Response) {
   const {
-    id,
+
     description,
     location,
     createdAt,
@@ -14,12 +14,11 @@ router.post("/create", function (req: Request, res: Response) {
     picture,
     price,
     title,
-  }: Ad = req.body;
+  }: AdCreateInput = req.body;
 
   try {
-    new AdServices().checkIfExist(id);
-    const result: Ad[] = new AdServices().create({
-      id,
+   
+    const result: Ad[] = await new AdServices().create({
       description,
       location,
       createdAt,
@@ -28,6 +27,7 @@ router.post("/create", function (req: Request, res: Response) {
       price,
       title,
     });
+    console.log("RESULT", result);
     res.send(result);
   } catch (err: any) {
     res.send({ message: err.message, success: false });
