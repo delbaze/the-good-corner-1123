@@ -1,17 +1,27 @@
 import { ads } from "../data";
 import { Ad } from "../types/ads";
+import sqlite3 from "sqlite3";
+
+// const db = new sqlite3.Database("../../thegoodcorner.sqlite");
 
 class AdServices {
-  // db: Repository<Ad>
-  // constructor(){
-  //     this.db = datasource.getRepository(Ad)
-  // }
+  db: sqlite3.Database;
+  constructor() {
+    this.db = new sqlite3.Database("thegoodcorner.sqlite");
+  }
   create(data: Ad) {
     ads.push(data);
     return ads;
   }
   list() {
-    return ads;
+    return new Promise<Ad[]>((resolve, reject) => {
+      this.db.all("SELECT * FROM ads", (err, rows) => {
+        if (err) {
+          reject(err.message);
+        }
+        resolve(rows as Ad[]);
+      });
+    });
   }
   checkIfExist(id: number): void {
     const isAlreadyInData: boolean = ads.some((ad) => ad.id === id);

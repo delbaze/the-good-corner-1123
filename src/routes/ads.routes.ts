@@ -34,8 +34,8 @@ router.post("/create", function (req: Request, res: Response) {
   }
 });
 
-router.get("/list", function (req: Request, res: Response) {
-  const result = new AdServices().list();
+router.get("/list", async function (req: Request, res: Response) {
+  const result = await new AdServices().list();
   res.send(result);
 });
 
