@@ -6,7 +6,6 @@ const router = Router();
 
 router.post("/create", async function (req: Request, res: Response) {
   const {
-
     description,
     location,
     createdAt,
@@ -17,7 +16,6 @@ router.post("/create", async function (req: Request, res: Response) {
   }: AdCreateInput = req.body;
 
   try {
-   
     const result: Ad[] = await new AdServices().create({
       description,
       location,
@@ -36,16 +34,19 @@ router.post("/create", async function (req: Request, res: Response) {
 
 router.get("/list", async function (req: Request, res: Response) {
   const result = await new AdServices().list();
+  console.log("RESULT", result);
   res.send(result);
 });
 
-router.get("/find/:id", function (req: Request, res: Response) {
+router.get("/find/:id", async function (req: Request, res: Response) {
   const id = +req.params.id;
   try {
-    const ad = new AdServices().find(id);
+    const ad = await new AdServices().find(id);
+    console.log("AD ====>", ad);
     res.send(ad);
   } catch (err: any) {
-    res.send({ message: err.message, success: false });
+    console.log("ERR", err);
+    res.send({ message: err, success: false });
   }
 });
 
@@ -60,13 +61,13 @@ router.patch("/update/:id", function (req: Request, res: Response) {
     res.send({ message: err.message, success: false });
   }
 });
-router.delete("/delete/:id", function (req: Request, res: Response) {
+router.delete("/delete/:id", async function (req: Request, res: Response) {
   const id = +req.params.id;
   try {
-    const ads = new AdServices().delete(id);
+    const ads = await new AdServices().delete(id);
     res.send(ads);
   } catch (err: any) {
-    res.send({ message: err.message, success: false });
+    res.send({ message: err, success: false });
   }
 });
 

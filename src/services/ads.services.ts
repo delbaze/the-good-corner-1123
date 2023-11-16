@@ -27,46 +27,72 @@ class AdServices {
   }
   list() {
     return new Promise<Ad[]>((resolve, reject) => {
-      this.db.all("SELECT * FROM ads", (err, rows) => {
+      this.db.all<Ad>("SELECT * FROM ads", (err, rows) => {
         if (err) {
           reject(err.message);
         }
-        resolve(rows as Ad[]);
+        resolve(rows);
       });
     });
   }
-  // checkIfExist(id: number): void {
-  //   const isAlreadyInData: boolean = ads.some((ad) => ad.id === id);
-  //   if (isAlreadyInData) {
-  //     throw new Error("Cette annonce existe déjà!");
-  //   }
-  // }
+
   find(id: number) {
-    const ad = ads.find((item) => item.id === id);
-    if (!ad) {
-      throw new Error("L'annonce n'existe pas");
-    }
-    return ad;
+    return new Promise<Ad>((resolve, reject) => {
+      this.db.get<Ad>("SELECT * FROM ads WHERE id = ?", [id], (err, row) => {
+        if (!row) {
+          reject("L'annonce n'existe pas");
+        }
+        resolve(row);
+      });
+    });
   }
 
   delete(id: number) {
-    const index = ads.findIndex((ad) => ad.id === id);
-    if (index === -1) {
-      throw new Error("L'annonce n'existe pas");
-    }
-    ads.splice(index, 1);
-    return ads;
+    return new Promise<Ad[]>(async (resolve, reject) => {
+      try {
+        await this.find(id);
+        //Premiere méthode :
+        // const requete = this.db.prepare("DELETE FROM ads WHERE id = ?");
+        // requete.run([id]);
+
+        //Deuxième méthode :
+        this.db.run("DELETE FROM ads WHERE id = ?", [id], async (err) => {
+          if (err) {
+            reject("Il y a eu un problème lors de la suppresion");
+          }
+          const ads = await this.list();
+          resolve(ads);
+        });
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
   update(id: number, data: Partial<Ad>) {
-    if (!data) {
-      throw new Error("Vérifiez vos informations");
-    }
-    const updateIndex = ads.findIndex((item) => item.id === id);
-    if (updateIndex === -1) {
-      throw new Error("L'annonce n'existe pas");
-    }
-    ads[updateIndex] = { ...ads[updateIndex], ...data };
-    return ads[updateIndex];
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (!data) {
+          reject("Vérifiez vos informations");
+        }
+        await this.find(id);
+
+        // this.db.run("UPDATE ads SET id = ? WHERE id = ?")
+        //! à revoir  pour finir le run sql
+        
+
+      } catch (err) {
+        reject(err);
+      }
+    });
+    // if (!data) {
+    //   throw new Error("Vérifiez vos informations");
+    // }
+    // const updateIndex = ads.findIndex((item) => item.id === id);
+    // if (updateIndex === -1) {
+    //   throw new Error("L'annonce n'existe pas");
+    // }
+    // ads[updateIndex] = { ...ads[updateIndex], ...data };
+    // return ads[updateIndex];
   }
 }
 
