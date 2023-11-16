@@ -1,12 +1,18 @@
+import { Repository } from "typeorm";
 import { ads } from "../data";
 import { Ad, AdCreateInput } from "../types/ads";
 import sqlite3 from "sqlite3";
+import AdEntity from "../entities/Ad.entity";
+import datasource from "../lib/datasource";
 
 // const db = new sqlite3.Database("../../thegoodcorner.sqlite");
 class AdServices {
   db: sqlite3.Database;
+  dbOrm: Repository<AdEntity>;
+
   constructor() {
     this.db = new sqlite3.Database("thegoodcorner.sqlite");
+    this.dbOrm = datasource.getRepository(AdEntity);
   }
   async create(data: AdCreateInput) {
     // ON UTILISERA LE INSERT INTO à la place du push
@@ -25,15 +31,16 @@ class AdServices {
 
     return await this.list();
   }
-  list() {
-    return new Promise<Ad[]>((resolve, reject) => {
-      this.db.all<Ad>("SELECT * FROM ads", (err, rows) => {
-        if (err) {
-          reject(err.message);
-        }
-        resolve(rows);
-      });
-    });
+  async list() {
+    return await this.dbOrm.find();
+    // return new Promise<Ad[]>((resolve, reject) => {
+    //   this.db.all<Ad>("SELECT * FROM ads", (err, rows) => {
+    //     if (err) {
+    //       reject(err.message);
+    //     }
+    //     resolve(rows);
+    //   });
+    // });
   }
 
   find(id: number) {
@@ -78,8 +85,6 @@ class AdServices {
 
         // this.db.run("UPDATE ads SET id = ? WHERE id = ?")
         //! à revoir  pour finir le run sql
-        
-
       } catch (err) {
         reject(err);
       }
