@@ -1,4 +1,4 @@
-import "reflect-metadata"
+import "reflect-metadata";
 
 import express from "express";
 import adsRouter from "./routes/ads.routes";
@@ -10,7 +10,7 @@ app.use(express.json()); //middleware
 app.use("/ads", adsRouter);
 app.use("/categories", categoriesRouter);
 
-app.listen(4000, () => {
-  datasource.initialize();//initialisation de la base de données
+app.listen(4000, async () => {
+  await datasource.initialize(); //initialisation de la base de données
   console.log("Le serveur est lancé sur le port 4000");
 });

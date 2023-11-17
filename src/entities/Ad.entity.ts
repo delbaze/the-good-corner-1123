@@ -22,10 +22,8 @@ class Ad {
 
   @Column()
   location: string;
-  
+
   @Column()
   createdAt: string;
-  
-
 }
 export default Ad;

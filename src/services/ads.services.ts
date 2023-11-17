@@ -1,103 +1,40 @@
-import { Repository } from "typeorm";
-import { ads } from "../data";
-import { Ad, AdCreateInput } from "../types/ads";
-import sqlite3 from "sqlite3";
-import AdEntity from "../entities/Ad.entity";
-import datasource from "../lib/datasource";
+import Ad from '../entities/Ad.entity';
+import datasource from '../lib/datasource';
+import { AdCreateInput } from '../types/ads';
+import { Repository } from 'typeorm';
 
-// const db = new sqlite3.Database("../../thegoodcorner.sqlite");
 class AdServices {
-  db: sqlite3.Database;
-  dbOrm: Repository<AdEntity>;
-
+  db: Repository<Ad>;
   constructor() {
-    this.db = new sqlite3.Database("thegoodcorner.sqlite");
-    this.dbOrm = datasource.getRepository(AdEntity);
+    this.db = datasource.getRepository(Ad);
   }
   async create(data: AdCreateInput) {
-    // ON UTILISERA LE INSERT INTO à la place du push
-
-    const requete = this.db.prepare(
-      "INSERT INTO ads (title, description, owner, price, picture, location) VALUES (?, ?, ?, ?, ?, ?)"
-    );
-    requete.run([
-      data.title,
-      data.description,
-      data.owner,
-      data.price,
-      data.picture,
-      data.location,
-    ]);
-
+    const newAd = this.db.create(data);
+    await this.db.save(newAd);
     return await this.list();
   }
   async list() {
-    return await this.dbOrm.find();
-    // return new Promise<Ad[]>((resolve, reject) => {
-    //   this.db.all<Ad>("SELECT * FROM ads", (err, rows) => {
-    //     if (err) {
-    //       reject(err.message);
-    //     }
-    //     resolve(rows);
-    //   });
-    // });
+    return await this.db.find();
   }
 
-  find(id: number) {
-    return new Promise<Ad>((resolve, reject) => {
-      this.db.get<Ad>("SELECT * FROM ads WHERE id = ?", [id], (err, row) => {
-        if (!row) {
-          reject("L'annonce n'existe pas");
-        }
-        resolve(row);
-      });
-    });
+  async find(id: number) {
+    const ad = await this.db.findOneBy({ id });
+    if (!ad) {
+      throw new Error("L'annonce n'existe pas");
+    }
+    return ad;
   }
 
-  delete(id: number) {
-    return new Promise<Ad[]>(async (resolve, reject) => {
-      try {
-        await this.find(id);
-        //Premiere méthode :
-        // const requete = this.db.prepare("DELETE FROM ads WHERE id = ?");
-        // requete.run([id]);
-
-        //Deuxième méthode :
-        this.db.run("DELETE FROM ads WHERE id = ?", [id], async (err) => {
-          if (err) {
-            reject("Il y a eu un problème lors de la suppresion");
-          }
-          const ads = await this.list();
-          resolve(ads);
-        });
-      } catch (err) {
-        reject(err);
-      }
-    });
+  async delete(id: number) {
+    const ad = await this.find(id);
+    await this.db.remove(ad);
+    return await this.list();
   }
-  update(id: number, data: Partial<Ad>) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        if (!data) {
-          reject("Vérifiez vos informations");
-        }
-        await this.find(id);
 
-        // this.db.run("UPDATE ads SET id = ? WHERE id = ?")
-        //! à revoir  pour finir le run sql
-      } catch (err) {
-        reject(err);
-      }
-    });
-    // if (!data) {
-    //   throw new Error("Vérifiez vos informations");
-    // }
-    // const updateIndex = ads.findIndex((item) => item.id === id);
-    // if (updateIndex === -1) {
-    //   throw new Error("L'annonce n'existe pas");
-    // }
-    // ads[updateIndex] = { ...ads[updateIndex], ...data };
-    // return ads[updateIndex];
+  async update(id: number, data: Partial<Ad>) {
+    const ad = await this.find(id);
+    const newInfos = this.db.merge(ad, data); // petite info, le merge permet d'ignorer les clés qui n'existent pas dans l'entité! vous voyez l'intéret d'un ORM? Tout est lié
+    return await this.db.save(newInfos);
   }
 }
 
