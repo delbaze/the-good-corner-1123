@@ -1,7 +1,7 @@
-import Ad from '../entities/Ad.entity';
-import AdServices from '../services/ads.services';
-import { AdCreateInput } from '../types/ads';
-import { Request, Response, Router } from 'express';
+import Ad from "../entities/Ad.entity";
+import AdServices from "../services/ads.services";
+import { AdCreateInput } from "../types/ads";
+import { Request, Response, Router } from "express";
 
 const router = Router();
 
@@ -14,6 +14,8 @@ router.post("/create", async function (req: Request, res: Response) {
     picture,
     price,
     title,
+    category,
+    tags,
   }: AdCreateInput = req.body;
 
   try {
@@ -25,6 +27,8 @@ router.post("/create", async function (req: Request, res: Response) {
       picture,
       price,
       title,
+      category,
+      tags,
     });
     res.send(result);
   } catch (err: any) {
@@ -33,7 +37,8 @@ router.post("/create", async function (req: Request, res: Response) {
 });
 
 router.get("/list", async function (req: Request, res: Response) {
-  const ads: Ad[] = await new AdServices().list();
+  const { search } = req.query;
+  const ads: Ad[] = await new AdServices().list(search as any as string | undefined);
   res.send(ads);
 });
 
@@ -51,7 +56,10 @@ router.patch("/update/:id", async function (req: Request, res: Response) {
   const id = +req.params.id;
   const data: Partial<Ad> = req.body;
   try {
-    const ad: Ad = await new AdServices().update(id, data);
+    const ad: Ad = await new AdServices().update(
+      id,
+      data as Partial<Ad> & { tags: string[] }
+    );
     res.send(ad);
   } catch (err: any) {
     res.send({ message: err.message, success: false });

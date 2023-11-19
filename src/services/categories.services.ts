@@ -12,7 +12,7 @@ class CategoryServices {
     const newCategory = this.db.create(data);
     await this.db.save(newCategory);
     return await this.list();
-  }
+  } 
   async list() {
     return await this.db.find();
   }
@@ -30,9 +30,10 @@ class CategoryServices {
     await this.db.remove(category);
     return await this.list();
   }
+  
   async update(id: number, data: Partial<Category>) {
-    const ad = await this.find(id);
-    const newInfos = this.db.merge(ad, data); // petite info, le merge permet d'ignorer les clés qui n'existent pas dans l'entité! vous voyez l'intéret d'un ORM? Tout est lié
+    const category = await this.find(id);
+    const newInfos = this.db.merge(category, data); // petite info, le merge permet d'ignorer les clés qui n'existent pas dans l'entité! vous voyez l'intéret d'un ORM? Tout est lié
     return await this.db.save(newInfos);
   }
 }

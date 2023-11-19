@@ -1,4 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import Category from "./Category.entity";
+import Tag from "./Tag.entity";
 
 @Entity()
 class Ad {
@@ -25,5 +34,12 @@ class Ad {
 
   @Column()
   createdAt: string;
+
+  @ManyToOne(() => Category, (c) => c.ads, { nullable: false, onDelete: "CASCADE" })//j'interdis de créer une annonce sans lui attribuer une catégorie, et je demande à supprimer l'annonce lorsque la catégorie est supprimée!
+  category: Category;
+
+  @ManyToMany(() => Tag, { cascade: ["insert", "update"] })
+  @JoinTable()
+  tags: Tag[];
 }
 export default Ad;
