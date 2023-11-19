@@ -14,7 +14,6 @@ class TagsServices {
     return await this.list();
   }
   async list(tagIds?: string[]) {
-    console.log("TEST", tagIds);
     return await this.db.find({
       where: {
         id: tagIds && tagIds.length > 0 ? In(tagIds.map((t) => +t)) : undefined,
