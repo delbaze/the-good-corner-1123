@@ -19,7 +19,7 @@ class AdServices {
     if (data?.tags.length) {
       tags = await new TagsServices().list(data.tags);
     }
-    const newAd = this.db.create({ ...data, category, tags }); //newAd attend une categorie. Si la catégorie n'est pas trouvée, le find juste au dessus lèvera une erreur, sinon nous arriverons ici
+    const newAd = this.db.create({ ...data,  category, tags }); //newAd attend une categorie. Si la catégorie n'est pas trouvée, le find juste au dessus lèvera une erreur, sinon nous arriverons ici
     await this.db.save(newAd);
     return await this.list();
   }
