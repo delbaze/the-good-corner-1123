@@ -7,8 +7,8 @@ function Navbar() {
       <Image alt="logo" src="/next.svg" width={20} height={20} />
       <input />
       <div>
-        <Link href={"/"}>Accueil</Link>
-        <Link href={"/categories/list"}>Liste des catégories</Link>
+        <Link href="/">Accueil</Link>
+        <Link href="/categories/list">Liste des catégories</Link>
       </div>
     </div>
   );
