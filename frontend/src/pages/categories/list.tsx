@@ -35,11 +35,27 @@ function ListCategories() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewCategoryName(e.target.value);
   };
+
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const id = e.currentTarget.dataset.id as string;
+    if (id) {
+      const newArray = categories.filter((c) => c.id !== +id);
+      setCategories(newArray);
+    }
+  };
+
   return (
     <div>
       <ul>
         {categories.map((category) => (
-          <li key={category.id}>{category.name}</li>
+          <li key={category.id}>
+            {category.name}
+            <button data-id={category.id} onClick={handleDelete}>
+              Supprimer
+            </button>
+            {/* <button onClick={() => handleDelete(category.id)}>Supprimer</button> */}
+            <button>Editer</button>
+          </li>
         ))}
       </ul>
       <form onSubmit={handleSubmit}>
