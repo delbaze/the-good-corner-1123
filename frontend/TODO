@@ -4,4 +4,6 @@
 ✔ On doit pouvoir changer de route et voir le contenu entre Navbar et Footer (utiliser le composant Link de Next) @done(23-11-21 11:23)
 ✔ Avoir un compteur qui parte de 0 et qu'on puisse incrémenter jusqu'à 10. @done(23-11-21 12:13)
 ✔ Créer un input, et afficher ce que l'on tape dedans dans un paragraphe à part @done(23-11-21 14:03)
-☐ Afficher dans une div "Je suis true" si un état booléen est à true et afficher dans une div "Je suis false" si l'état booléen est false
+✔ Afficher dans une div "Je suis true" si un état booléen est à true et afficher dans une div "Je suis false" si l'état booléen est false @done(23-11-21 14:34)
+✔ Afficher dans une ul la liste des données statiques des catégories! @done(23-11-21 15:01)
+☐ Créer un formulaire avec un input qui va rajouter une ligne au tableau de catégorie, la vue doit être rafraichie
