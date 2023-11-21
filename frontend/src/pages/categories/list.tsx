@@ -37,7 +37,7 @@ function ListCategories() {
   };
 
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const id = e.currentTarget.dataset.id as string;
+    const id = e.currentTarget.dataset.id;
     if (id) {
       const newArray = categories.filter((c) => c.id !== +id);
       setCategories(newArray);
