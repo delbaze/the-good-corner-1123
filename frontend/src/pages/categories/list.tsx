@@ -21,19 +21,12 @@ function ListCategories() {
   ]);
 
   const [newCategoryName, setNewCategoryName] = useState<string>("");
-  //   const handleClick = () => {
-  //     setCategories([...categories, { id: 4, name: "ma catégorie 4" }]);
-  //   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); //court circuiter le comportement par défaut du formulaire (autrement dit de ne pas jouer l'action du form)
     const newId = categories[categories.length - 1]?.id + 1;
     setCategories([...categories, { id: newId, name: newCategoryName }]);
     setNewCategoryName("");
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewCategoryName(e.target.value);
   };
 
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,6 +37,20 @@ function ListCategories() {
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewCategoryName(e.target.value);
+  };
+
+  const handleEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const id = e.currentTarget.dataset.id;
+    if (id) {
+      //procéder à l'édition => récupérer la catégorie dans le tableau "categories", récupérer son nom, stocker dans la variable d'état newCategoryName son nom
+      let category = categories.find((c) => c.id == +id);
+      if (category) {
+        setNewCategoryName(category?.name);
+      }
+    }
+  };
   return (
     <div>
       <ul>
@@ -54,7 +61,9 @@ function ListCategories() {
               Supprimer
             </button>
             {/* <button onClick={() => handleDelete(category.id)}>Supprimer</button> */}
-            <button>Editer</button>
+            <button data-id={category.id} onClick={handleEdit}>
+              Editer
+            </button>
           </li>
         ))}
       </ul>
