@@ -1,4 +1,4 @@
-☐ Créer un composant "Layout"
-☐ Créer les composants Navbar et Footer
+✔ Créer un composant "Layout" @done(23-11-21 10:28)
+☐ Créer les composants Navbar et Footer @started(23-11-21 10:28)
 ☐ Injecter la Layout dans le fichier __app.tsx
-☐ On doit pouvoir changer de route et voir le contenu entre Navbar et Footer
+☐ On doit pouvoir changer de route et voir le contenu entre Navbar et Footer (utiliser le composant Link de Next)
