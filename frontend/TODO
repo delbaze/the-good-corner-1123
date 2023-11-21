@@ -2,4 +2,6 @@
 ✔ Créer les composants Navbar et Footer @started(23-11-21 10:28) @done(23-11-21 11:22) @lasted(54m58s)
 ✔ Injecter la Layout dans le fichier __app.tsx @done(23-11-21 11:22)
 ✔ On doit pouvoir changer de route et voir le contenu entre Navbar et Footer (utiliser le composant Link de Next) @done(23-11-21 11:23)
-☐ Avoir un compteur qui parte de 0 et qu'on puisse incrémenter jusqu'à 10.
+✔ Avoir un compteur qui parte de 0 et qu'on puisse incrémenter jusqu'à 10. @done(23-11-21 12:13)
+✔ Créer un input, et afficher ce que l'on tape dedans dans un paragraphe à part @done(23-11-21 14:03)
+☐ Afficher dans une div "Je suis true" si un état booléen est à true et afficher dans une div "Je suis false" si l'état booléen est false

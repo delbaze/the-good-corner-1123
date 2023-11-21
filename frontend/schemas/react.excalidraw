@@ -582,6 +582,108 @@
       "containerId": null,
       "originalText": "https://legacy.reactjs.org/docs/events.html#form-events",
       "lineHeight": 1.25
+    },
+    {
+      "id": "TWG8lps2SCvvSjptGlqmn",
+      "type": "rectangle",
+      "x": 665.7354888916014,
+      "y": 1764.2202758789058,
+      "width": 477.70172119140614,
+      "height": 592.8005599975586,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 1161417534,
+      "version": 31,
+      "versionNonce": 1008890558,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1700565239360,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "BGFYpr17QwlVMsP39y3gp",
+      "type": "rectangle",
+      "x": 718.0900726318358,
+      "y": 1836.1875534057613,
+      "width": 349.2296600341796,
+      "height": 37.24498748779297,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 1191275262,
+      "version": 61,
+      "versionNonce": 1040694498,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1700565242445,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "u3N6IGTgJ0RnId1aWbbJV",
+      "type": "line",
+      "x": 729.9715576171874,
+      "y": 1939.567489624023,
+      "width": 328.3962249755858,
+      "height": 0.7866668701171875,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1958380158,
+      "version": 36,
+      "versionNonce": 171389922,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1700565246566,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          328.3962249755858,
+          0.7866668701171875
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": null,
+      "endBinding": null,
+      "startArrowhead": null,
+      "endArrowhead": null
     }
   ],
   "appState": {
