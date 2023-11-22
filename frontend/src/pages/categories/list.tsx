@@ -14,12 +14,18 @@ function ListCategories() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   console.log("STATE DEPUIS USE EFFECT", state);
-  // }, [state]);
+  useEffect(() => {
+    console.log("STATE DEPUIS USE EFFECT", state);
+  }, [state]);
   const handleClick = () => {
-    setState(!state);
+    setState(!state); //asynchrone
     console.log("STATE DEPUIS LE CLICK", state);
+
+    setState((s) => { // synchrone
+      //je travaille avec s dans sa dernière valeur connue
+      // return !s;
+      return !s;
+    });
   };
   return (
     <>
