@@ -19,18 +19,20 @@ class AdServices {
     if (data?.tags.length) {
       tags = await new TagsServices().list(data.tags);
     }
-    const newAd = this.db.create({ ...data,  category, tags }); //newAd attend une categorie. Si la catégorie n'est pas trouvée, le find juste au dessus lèvera une erreur, sinon nous arriverons ici
+    const newAd = this.db.create({ ...data, category, tags }); //newAd attend une categorie. Si la catégorie n'est pas trouvée, le find juste au dessus lèvera une erreur, sinon nous arriverons ici
     await this.db.save(newAd);
     return await this.list();
   }
   async list(search?: string) {
     return await this.db.find({
       relations: { category: true, tags: true }, //permet de récupérer la jointure faite entre ad et category et entre ad et tags
-      where: [
-        //si le where est un tableau on a un WHERE OR sinon, si vous mettez un objet, c'est un WHERE AND
-        { title: search ? Like(`%${search}%`) : undefined },
-        { tags: { name: search ? Like(`%${search}%`) : undefined } },
-      ],
+      where: search
+        ? [
+            //si le where est un tableau on a un WHERE OR sinon, si vous mettez un objet, c'est un WHERE AND
+            { title: Like(`%${search}%`) },
+            { tags: { name: Like(`%${search}%`) } },
+          ]
+        : undefined,
     });
   }
 

@@ -38,6 +38,7 @@ router.post("/create", async function (req: Request, res: Response) {
 
 router.get("/list", async function (req: Request, res: Response) {
   const { search } = req.query;
+  console.log('serach', search);
   const ads: Ad[] = await new AdServices().list(search as any as string | undefined);
   res.send(ads);
 });
