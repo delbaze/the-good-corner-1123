@@ -6,7 +6,7 @@ class Category {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({unique: true})
+  @Column()
   name: string;
 
   @OneToMany(() => Ad, (a) => a.category)

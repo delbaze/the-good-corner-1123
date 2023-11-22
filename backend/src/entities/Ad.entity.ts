@@ -32,10 +32,13 @@ class Ad {
   @Column()
   location: string;
 
-  @Column()
-  createdAt: string;
+  @Column({ default: Date.now() })
+  createdAt: number;
 
-  @ManyToOne(() => Category, (c) => c.ads, { nullable: false, onDelete: "CASCADE"})//j'interdis de créer une annonce sans lui attribuer une catégorie, et je demande à supprimer l'annonce lorsque la catégorie est supprimée!
+  @ManyToOne(() => Category, (c) => c.ads, {
+    nullable: false,
+    onDelete: "CASCADE",
+  }) //j'interdis de créer une annonce sans lui attribuer une catégorie, et je demande à supprimer l'annonce lorsque la catégorie est supprimée!
   category: Category;
 
   @ManyToMany(() => Tag, { cascade: ["insert", "update"] })

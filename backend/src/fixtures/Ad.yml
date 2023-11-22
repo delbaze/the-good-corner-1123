@@ -1,0 +1,21 @@
+entity: Ad
+items:
+  ad{1..10}:
+    title: "{{commerce.product}}"
+    description: "{{commerce.productDescription}}"
+    owner: "{{person.fullName}}"
+    price: "{{commerce.price}}"
+    picture: "{{image.url}}"
+    location: "{{location.city}}"
+    category: "@category1"
+    tags: "[@tag1, @tag2]"
+  ad{11..20}:
+    title: "{{commerce.product}}"
+    description: "{{commerce.productDescription}}"
+    owner: "{{person.fullName}}"
+    price: "{{commerce.price}}"
+    picture: "{{image.url}}"
+    location: "{{location.city}}"
+    category: "@category2"
+    tags: "[@tag3, @tag4]"
+
