@@ -1,36 +1,30 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "@/lib/axiosInstance";
+import { Category } from "@/types/category";
+import CategoryGrid from "@/components/CategoryGrid";
 
 function ListCategories() {
-  const [state, setState] = useState(false);
-  // async function marequete() {
-  //   const response = await axiosInstance.get("/categories/list");
-  //   console.log("%c⧭", "color: #1d5673", response);
-  // }
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
-    // marequete();
     axiosInstance.get("/categories/list").then((response) => {
-      console.log(response);
+      setCategories(response.data);
+      setLoading(false);
     });
   }, []);
 
-  useEffect(() => {
-    console.log("STATE DEPUIS USE EFFECT", state);
-  }, [state]);
-  const handleClick = () => {
-    setState(!state); //asynchrone
-    console.log("STATE DEPUIS LE CLICK", state);
-
-    setState((s) => { // synchrone
-      //je travaille avec s dans sa dernière valeur connue
-      // return !s;
-      return !s;
-    });
-  };
+  if (loading) {
+    return <div>Chargement en cours</div>;
+  }
   return (
     <>
       <h1>Liste des catégories : </h1>
-      <button onClick={handleClick}>Click</button>
+      {/* {categories.length && <CategoryGrid categories={categories} />} */}
+      {categories.length ? (
+        <CategoryGrid categories={categories} />
+      ) : (
+        <div>Aucune catégorie</div>
+      )}
     </>
   );
 }
