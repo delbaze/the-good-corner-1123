@@ -5,9 +5,14 @@ import adsRouter from "./routes/ads.routes";
 import categoriesRouter from "./routes/categories.routes";
 import tagsRouter from "./routes/tags.routes";
 import datasource from "./lib/datasource";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors({ origin: ["http://localhost:3000"] })); //permet de spécifier QUI a le droit de contacter le backend
+
 app.use(express.json()); //middleware
+
 app.use("/ads", adsRouter);
 app.use("/categories", categoriesRouter);
 app.use("/tags", tagsRouter);
