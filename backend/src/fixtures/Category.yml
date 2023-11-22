@@ -1,0 +1,4 @@
+entity: Category
+items:
+  category{1..10}:
+    name: "{{commerce.department}}"
