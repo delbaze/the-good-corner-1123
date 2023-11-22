@@ -21,12 +21,35 @@ function ListCategories() {
   ]);
 
   const [newCategoryName, setNewCategoryName] = useState<string>("");
+  const [editMode, setEditMode] = useState<boolean>(false);
+  const [actualId, setActualId] = useState<number>();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); //court circuiter le comportement par défaut du formulaire (autrement dit de ne pas jouer l'action du form)
-    const newId = categories[categories.length - 1]?.id + 1;
-    setCategories([...categories, { id: newId, name: newCategoryName }]);
+  const resetForm = () => {
+    setEditMode(false);
+    setActualId(undefined);
     setNewCategoryName("");
+  };
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    //est ce qu'on est dans l'édition ou dans l'ajout?????
+    e.preventDefault(); //court circuiter le comportement par défaut du formulaire (autrement dit de ne pas jouer l'action du form)
+    if (editMode) {
+      setCategories(
+        categories.map((c) => {
+          if (c.id === actualId) {
+            return {
+              ...c,
+              name: newCategoryName,
+            };
+          }
+          return c;
+        })
+      );
+      resetForm();
+    } else {
+      const newId = categories[categories.length - 1]?.id + 1;
+      setCategories([...categories, { id: newId, name: newCategoryName }]);
+      setNewCategoryName("");
+    }
   };
 
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,10 +67,15 @@ function ListCategories() {
   const handleEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
     const id = e.currentTarget.dataset.id;
     if (id) {
-      //procéder à l'édition => récupérer la catégorie dans le tableau "categories", récupérer son nom, stocker dans la variable d'état newCategoryName son nom
-      let category = categories.find((c) => c.id == +id);
-      if (category) {
-        setNewCategoryName(category?.name);
+      if (actualId && +id === actualId) {
+        resetForm();
+      } else {
+        setEditMode(true);
+        setActualId(+id);
+        let category = categories.find((c) => c.id == +id);
+        if (category) {
+          setNewCategoryName(category?.name);
+        }
       }
     }
   };
@@ -57,12 +85,17 @@ function ListCategories() {
         {categories.map((category) => (
           <li key={category.id}>
             {category.name}
-            <button data-id={category.id} onClick={handleDelete}>
+            <button
+              data-id={category.id}
+              onClick={handleDelete}
+              disabled={editMode}
+            >
+              {/* <button data-id={category.id} onClick={handleDelete} disabled={editMode && category.id === actualId}> */}
               Supprimer
             </button>
             {/* <button onClick={() => handleDelete(category.id)}>Supprimer</button> */}
             <button data-id={category.id} onClick={handleEdit}>
-              Editer
+              {category.id === actualId ? "Annuler" : "Editer"}
             </button>
           </li>
         ))}
@@ -73,7 +106,7 @@ function ListCategories() {
           onChange={handleChange}
           value={newCategoryName}
         />
-        <button>Click</button>
+        <button>{editMode ? "Editer" : "Créer"}</button>
       </form>
     </div>
   );
