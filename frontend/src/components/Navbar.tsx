@@ -7,7 +7,7 @@ function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.logoBloc}>
         <Link href="/">
-          <Image alt="logo" src="/next.svg" width={20} height={20} />
+          <Image alt="logo" src="/logo.svg" width={60} height={60} />
         </Link>
       </div>
       <div className={styles.inputBloc}>

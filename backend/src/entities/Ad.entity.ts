@@ -31,7 +31,7 @@ class Ad {
 
   @Column()
   location: string;
-
+  
   @Column({ default: Date.now() })
   createdAt: number;
 

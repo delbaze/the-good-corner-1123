@@ -1,0 +1,19 @@
+.image {
+  object-fit: cover;
+}
+.adGrid {
+  display: flex;
+}
+.adCard {
+  width: 30rem;
+}
+.button {
+  border: none;
+  background-color: rgb(208, 208, 208);
+  color: black;
+  padding: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}

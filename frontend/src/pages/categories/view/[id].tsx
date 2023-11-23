@@ -1,21 +1,32 @@
+import AdsGrid from "@/components/AdsGrid";
 import axiosInstance from "@/lib/axiosInstance";
+import { Category } from "@/types/category";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
 function CategoryAds() {
   const router = useRouter();
+  const [category, setCategory] = useState<Category>();
   useEffect(() => {
     if (router.isReady) {
-      //faire la récupération des données
-      console.log("je récupère les données", router.query.id);
       axiosInstance
         .get(`/categories/find/${router.query.id}`)
         .then((result) => {
-          console.log(result);
+          setCategory(result.data);
         });
     }
   }, [router.isReady]);
-  return <div>Ici il y aura la liste des annonces</div>;
+  return (
+    <div>
+      <h1>{category?.name}</h1>
+      {category?.ads.length ? (
+  
+          <AdsGrid ads={category.ads} />
+        
+      ) : (
+        <div>Aucune annonce dans cette catégorie</div>
+      )}
+    </div>
+  );
 }
 
 export default CategoryAds;

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 viewBox="0 0 460 460" xml:space="preserve">
+<g id="XMLID_12_">
+	<polygon id="XMLID_13_" style="fill:#BEC8D6;" points="240,100 60,100 60,0 230,0 	"/>
+	<polygon id="XMLID_14_" style="fill:#8799B3;" points="230,460 30,460 30,100 230,100 240,280 	"/>
+	<rect id="XMLID_15_" x="230" y="100" style="fill:#6B81A1;" width="200" height="360"/>
+	<polygon id="XMLID_16_" style="fill:#FFEAC3;" points="60,430 230,430 230,270 135,350 	"/>
+	<polygon id="XMLID_17_" style="fill:#FFFFFF;" points="60,270 60,430 230,270 	"/>
+	<rect id="XMLID_41_" x="260" y="270" style="fill:#354A67;" width="140" height="190"/>
+	<rect id="XMLID_18_" x="290" y="300" style="fill:#FFD488;" width="80" height="130"/>
+	<rect id="XMLID_19_" x="230" style="fill:#A3B1C4;" width="170" height="100"/>
+	<polygon id="XMLID_20_" style="fill:#FFB739;" points="30,90 0,180 58.333,190 116.667,180 133.015,135 130,90 	"/>
+	<polygon id="XMLID_21_" style="fill:#FFD488;" points="130,90 116.667,180 173.333,190 230,180 240,135 230,90 	"/>
+	<polygon id="XMLID_22_" style="fill:#FFB739;" points="330,90 230,90 230,180 286.667,190 343.333,180 346.818,135 	"/>
+	<polygon id="XMLID_23_" style="fill:#FFD488;" points="460,180 430,90 330,90 343.333,180 401.667,190 	"/>
+	<path id="XMLID_24_" style="fill:#FFB739;" d="M116.667,180v19.721c8.159,23.446,30.44,40.279,56.666,40.279
+		S221.84,223.167,230,199.721V180H116.667z"/>
+	<path id="XMLID_25_" style="fill:#FB992D;" d="M0,180c0,33.137,26.863,60,60,60c26.226,0,48.507-16.833,56.667-40.279V180H0z"/>
+	<path id="XMLID_26_" style="fill:#FB992D;" d="M230,180v19.721C238.159,223.167,260.441,240,286.667,240
+		c26.226,0,48.507-16.833,56.667-40.279V180H230z"/>
+	<path id="XMLID_27_" style="fill:#FFB739;" d="M343.333,180v19.721C351.493,223.167,373.774,240,400,240c33.137,0,60-26.863,60-60
+		H343.333z"/>
+</g>
+</svg>
