@@ -1,0 +1,21 @@
+.mainBloc {
+    display: flex;
+    flex-direction: column;
+    height:calc(100vh - 1rem)
+  }
+  .headerPage {
+    /* flex: 0.4 */
+    height: 7rem;
+  }
+  .footer {
+    height: 2rem;
+  }
+  
+  .app {
+    flex: auto;
+  }
+  .container {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+  }
