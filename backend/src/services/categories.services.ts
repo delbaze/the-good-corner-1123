@@ -1,7 +1,7 @@
-import Category from '../entities/Category.entity';
-import datasource from '../lib/datasource';
-import { CategoryCreateInput } from '../types/categories';
-import { Repository } from 'typeorm';
+import Category from "../entities/Category.entity";
+import datasource from "../lib/datasource";
+import { CategoryCreateInput } from "../types/categories";
+import { Repository } from "typeorm";
 
 class CategoryServices {
   db: Repository<Category>;
@@ -12,13 +12,17 @@ class CategoryServices {
     const newCategory = this.db.create(data);
     await this.db.save(newCategory);
     return await this.list();
-  } 
+  }
   async list() {
     return await this.db.find();
   }
 
   async find(id: number) {
-    const category = await this.db.findOneBy({ id });
+    // const category = await this.db.findOneBy({ id });
+    const category = await this.db.findOne({
+      where: { id },
+      relations: { ads: true },
+    });
     if (!category) {
       throw new Error("La catégorie n'existe pas");
     }
@@ -30,7 +34,7 @@ class CategoryServices {
     await this.db.remove(category);
     return await this.list();
   }
-  
+
   async update(id: number, data: Partial<Category>) {
     const category = await this.find(id);
     const newInfos = this.db.merge(category, data); // petite info, le merge permet d'ignorer les clés qui n'existent pas dans l'entité! vous voyez l'intéret d'un ORM? Tout est lié

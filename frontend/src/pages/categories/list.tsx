@@ -6,6 +6,7 @@ import CategoryGrid from "@/components/CategoryGrid";
 function ListCategories() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
     axiosInstance.get("/categories/list").then((response) => {
       setCategories(response.data);
