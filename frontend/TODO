@@ -10,6 +10,7 @@
 ✔ Permettre de supprimer et d'éditer une catégorie. Lorsque l'on est en mode "edition" le bouton du formulaire devient "Editer" et l'input de prérempli (de ce qu'il y avait avant) sinon le bouton est créer @started(23-11-22 10:16) @done(23-11-22 14:23) @lasted(4h7m42s)
 ✔ au moment de cliquer sur "Editer" à côté de l'input, ça doit mettre à jour le tableau categories, et vider l'input @done(23-11-22 14:23)
 ✔ Afficher la liste des catégories à la suite de l'appel vers le back @done(23-11-22 16:42)
-☐ Au clic d'une catégorie, voir la liste des annonces de cette dernière dans une page à part
+☐ Au clic d'une catégorie, voir la liste des annonces de cette dernière dans une page à part @started(23-11-23 10:05)
+☐ BONUS : Créer une carte (composant) séparé pour afficher l'annonce
 ☐ Au clic d'une annonce, voir l'annonce dans une page à part avec les détails complets de l'annonce
 ☐ Prévoir une route d'administration qui permettra d'ajouter une catégorie avec un formulaire
