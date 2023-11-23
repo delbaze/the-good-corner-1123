@@ -1,4 +1,7 @@
 import {
+  AfterInsert,
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   Entity,
   JoinTable,
@@ -8,9 +11,18 @@ import {
 } from "typeorm";
 import Category from "./Category.entity";
 import Tag from "./Tag.entity";
+import slugify from "slugify";
 
 @Entity()
 class Ad {
+  @BeforeUpdate()
+  @BeforeInsert()
+  protected createSlug() {
+    this.slug = `${slugify(this.title, { lower: true })}-${Math.floor(
+      Math.random() * 1000000
+    )}`;
+  }
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -31,7 +43,10 @@ class Ad {
 
   @Column()
   location: string;
-  
+
+  @Column()
+  slug: string;
+
   @Column({ default: Date.now() })
   createdAt: number;
 
