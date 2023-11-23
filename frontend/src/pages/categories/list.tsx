@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "@/lib/axiosInstance";
 import { Category } from "@/types/category";
-import CategoryGrid from "@/components/CategoryGrid";
+import CategoryGrid from "@/components/categories/CategoryGrid";
 import { AxiosResponse } from "axios";
 
 function ListCategories() {
@@ -10,7 +10,7 @@ function ListCategories() {
 
   useEffect(() => {
     axiosInstance
-      .get<AxiosResponse<Category[]>["data"]>("/categories/list")
+      .get<Category[]>("/categories/list")
       .then((response) => {
         setCategories(response.data);
         setLoading(false);

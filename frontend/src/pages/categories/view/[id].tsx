@@ -1,5 +1,5 @@
-import AdsGrid from "@/components/AdsGrid";
-import Back from "@/components/Back";
+import AdsGrid from "@/components/ads/AdsGrid";
+import Back from "@/components/common/Back";
 import axiosInstance from "@/lib/axiosInstance";
 import { Category } from "@/types/category";
 import { AxiosResponse } from "axios";
@@ -11,7 +11,7 @@ function CategoryAds() {
   useEffect(() => {
     if (router.isReady) {
       axiosInstance
-        .get<AxiosResponse<Category>["data"]>(
+        .get<Category>(
           `/categories/find/${router.query.id}`
         )
         .then((result) => {

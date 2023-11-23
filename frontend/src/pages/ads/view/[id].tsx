@@ -4,7 +4,7 @@ import Image from "next/image";
 import axiosInstance from "@/lib/axiosInstance";
 import { Ad } from "@/types/ad";
 import { AxiosResponse } from "axios";
-import Back from "@/components/Back";
+import Back from "@/components/common/Back";
 
 function AdDetails() {
   const [ad, setAd] = useState<Ad>();
@@ -13,7 +13,7 @@ function AdDetails() {
   useEffect(() => {
     if (router.isReady) {
       axiosInstance
-        .get<AxiosResponse<Ad>["data"]>(`/ads/find/${router.query.id}`)
+        .get<Ad>(`/ads/find/${router.query.id}`)
         .then((result) => {
           console.log('%c⧭', 'color: #807160', result);
           setAd(result.data);
