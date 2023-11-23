@@ -23,6 +23,9 @@ function Navbar() {
         <Link href={"/ads/create"} className={styles.addAdButton}>
           Ajouter une annonce
         </Link>
+        <Link href={"/admin/categories/create"} className={styles.addAdButton}>
+          Ajouter une catégorie
+        </Link>
       </div>
     </nav>
   );
