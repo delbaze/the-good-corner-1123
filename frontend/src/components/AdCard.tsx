@@ -14,7 +14,7 @@ function AdCard({ ad }: { ad: Ad }) {
         height={50}
         className={styles.image}
       />
-      <Link href={`/ads/${ad.id}`} className={styles.button}>
+      <Link href={`/ads/view/${ad.id}`} className={styles.button}>
         Voir l'annonce
       </Link>
     </div>

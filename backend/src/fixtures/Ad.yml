@@ -8,7 +8,9 @@ items:
     picture: "{{image.url}}"
     location: "{{location.city}}"
     category: "@category1"
-    tags: "[@tag1, @tag2]"
+    tags:
+      - "@tag1"
+      - "@tag2"
   ad{11..20}:
     title: "{{commerce.product}}"
     description: "{{commerce.productDescription}}"
@@ -17,5 +19,6 @@ items:
     picture: "{{image.url}}"
     location: "{{location.city}}"
     category: "@category2"
-    tags: "[@tag3, @tag4]"
-
+    tags:
+      - "@tag3"
+      - "@tag4"

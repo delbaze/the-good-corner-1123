@@ -2,16 +2,19 @@ import { useState, useEffect } from "react";
 import axiosInstance from "@/lib/axiosInstance";
 import { Category } from "@/types/category";
 import CategoryGrid from "@/components/CategoryGrid";
+import { AxiosResponse } from "axios";
 
 function ListCategories() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    axiosInstance.get("/categories/list").then((response) => {
-      setCategories(response.data);
-      setLoading(false);
-    });
+    axiosInstance
+      .get<AxiosResponse<Category[]>["data"]>("/categories/list")
+      .then((response) => {
+        setCategories(response.data);
+        setLoading(false);
+      });
   }, []);
 
   if (loading) {

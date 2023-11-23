@@ -1,6 +1,8 @@
 import AdsGrid from "@/components/AdsGrid";
+import Back from "@/components/Back";
 import axiosInstance from "@/lib/axiosInstance";
 import { Category } from "@/types/category";
+import { AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 function CategoryAds() {
@@ -9,7 +11,9 @@ function CategoryAds() {
   useEffect(() => {
     if (router.isReady) {
       axiosInstance
-        .get(`/categories/find/${router.query.id}`)
+        .get<AxiosResponse<Category>["data"]>(
+          `/categories/find/${router.query.id}`
+        )
         .then((result) => {
           setCategory(result.data);
         });
@@ -17,11 +21,10 @@ function CategoryAds() {
   }, [router.isReady]);
   return (
     <div>
+      <Back />
       <h1>{category?.name}</h1>
       {category?.ads.length ? (
-  
-          <AdsGrid ads={category.ads} />
-        
+        <AdsGrid ads={category.ads} />
       ) : (
         <div>Aucune annonce dans cette catégorie</div>
       )}
