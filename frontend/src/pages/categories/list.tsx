@@ -8,12 +8,10 @@ function ListCategories() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    axiosInstance
-      .get<Category[]>("/categories/list")
-      .then((response) => {
-        setCategories(response.data);
-        setLoading(false);
-      });
+    axiosInstance.get<Category[]>("/categories/list").then((response) => {
+      setCategories(response.data);
+      setLoading(false);
+    });
   }, []);
 
   if (loading) {

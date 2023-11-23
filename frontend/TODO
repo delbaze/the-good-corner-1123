@@ -12,5 +12,6 @@
 ✔ Afficher la liste des catégories à la suite de l'appel vers le back @done(23-11-22 16:42)
 ✔ Au clic d'une catégorie, voir la liste des annonces de cette dernière dans une page à part @started(23-11-23 10:05) @done(23-11-23 12:20) @lasted(2h15m56s)
 ✔ BONUS : Créer une carte (composant) séparé pour afficher l'annonce @done(23-11-23 12:20)
-☐ Au clic d'une annonce, voir l'annonce dans une page à part avec les détails complets de l'annonce
-☐ Prévoir une route d'administration qui permettra d'ajouter une catégorie avec un formulaire
+✔ Au clic d'une annonce, voir l'annonce dans une page à part avec les détails complets de l'annonce @done(23-11-23 17:04)
+✔ Prévoir une route d'administration qui permettra d'ajouter une catégorie avec un formulaire @done(23-11-23 17:04)
+☐ Faire l'ajout d'une annonce (créer la route avant) et permettre d'assigner une catégorie à l'annonce au moment de l'ajout
