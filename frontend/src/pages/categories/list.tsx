@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import axiosInstance from "@/lib/axiosInstance";
 import { Category } from "@/types/category";
 import CategoryGrid from "@/components/categories/CategoryGrid";
-import { AxiosResponse } from "axios";
 
 function ListCategories() {
   const [categories, setCategories] = useState<Category[]>([]);

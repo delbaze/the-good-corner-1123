@@ -2,7 +2,6 @@ import AdsGrid from "@/components/ads/AdsGrid";
 import Back from "@/components/common/Back";
 import axiosInstance from "@/lib/axiosInstance";
 import { Category } from "@/types/category";
-import { AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 function CategoryAds() {

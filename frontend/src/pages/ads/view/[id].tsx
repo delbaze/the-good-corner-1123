@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import axiosInstance from "@/lib/axiosInstance";
 import { Ad } from "@/types/ad";
-import { AxiosResponse } from "axios";
 import Back from "@/components/common/Back";
 
 function AdDetails() {
