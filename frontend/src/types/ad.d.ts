@@ -8,5 +8,6 @@ export interface Ad {
   picture: string;
   location: string;
   createdAt: number;
+  slug: string
   category: Category;
 }

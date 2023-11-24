@@ -3,7 +3,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axiosInstance from "@/lib/axiosInstance";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const schema = yup.object({
   name: yup.string().required("Attention, le nom de la catégorie est requis"), //name doit être de type string et est requis

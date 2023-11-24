@@ -16,7 +16,7 @@ class AdServices {
   async create(data: AdCreateInput) {
     const category = await new CategoryServices().find(data.category.id);
     let tags: Tag[] = [];
-    if (data?.tags.length) {
+    if (data?.tags?.length) {
       tags = await new TagsServices().list(data.tags);
     }
     const newAd = this.db.create({ ...data, category, tags }); //newAd attend une categorie. Si la catégorie n'est pas trouvée, le find juste au dessus lèvera une erreur, sinon nous arriverons ici

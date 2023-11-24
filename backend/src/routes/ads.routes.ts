@@ -9,7 +9,6 @@ router.post("/create", async function (req: Request, res: Response) {
   const {
     description,
     location,
-    createdAt,
     owner,
     picture,
     price,
@@ -22,7 +21,6 @@ router.post("/create", async function (req: Request, res: Response) {
     const result: Ad[] = await new AdServices().create({
       description,
       location,
-      createdAt,
       owner,
       picture,
       price,
