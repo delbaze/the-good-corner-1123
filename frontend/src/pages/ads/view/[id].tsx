@@ -18,7 +18,7 @@ function AdDetails() {
           setAd(result.data);
         });
     }
-  }, [router.isReady]);
+  }, [router.isReady, router.query]);
 
   return (
     <div>

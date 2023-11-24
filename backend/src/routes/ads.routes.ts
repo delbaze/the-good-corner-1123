@@ -34,13 +34,13 @@ router.post("/create", async function (req: Request, res: Response) {
   }
 });
 
-router.get("/list", async function (req: Request, res: Response) {
+router.get("/list", async function (req: Request, res: Response) { //http://localhost:4000/ads/list?search=marecherche
   const { search } = req.query;
   const ads: Ad[] = await new AdServices().list(search as any as string | undefined);
   res.send(ads);
 });
 
-router.get("/find/:id", async function (req: Request, res: Response) {
+router.get("/find/:id", async function (req: Request, res: Response) {//http://localhost:4000/ads/find/123456789
   const id = +req.params.id;
   console.log("ID", id);
   try {
