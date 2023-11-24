@@ -14,4 +14,5 @@
 ✔ BONUS : Créer une carte (composant) séparé pour afficher l'annonce @done(23-11-23 12:20)
 ✔ Au clic d'une annonce, voir l'annonce dans une page à part avec les détails complets de l'annonce @done(23-11-23 17:04)
 ✔ Prévoir une route d'administration qui permettra d'ajouter une catégorie avec un formulaire @done(23-11-23 17:04)
-☐ Faire l'ajout d'une annonce (créer la route avant) et permettre d'assigner une catégorie à l'annonce au moment de l'ajout
+✔ Faire l'ajout d'une annonce (créer la route avant) et permettre d'assigner une catégorie à l'annonce au moment de l'ajout @done(23-11-24 14:47)
+

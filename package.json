@@ -6,7 +6,7 @@
   "scripts": {
     "startBack": "npm run start --prefix ./backend",
     "startFront": "npm run dev --prefix ./frontend",
-    "start": "concurrently \"npm run startBack\" \"npm run startFront\"",
+    "start": "concurrently -c \"red, blue\" \"npm run startBack\" \"npm run startFront\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -5,6 +5,7 @@ import axiosInstance from "@/lib/axiosInstance";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Category } from "@/types/category";
+import { Ad } from "@/types/ad";
 
 const schema = yup.object({
   title: yup.string().required("Attention, le titre de l'annonce est requis"),
@@ -33,19 +34,13 @@ function CreateAd() {
   });
 
   const onSubmit = (data: any) => {
-    console.log(data);
-    // axiosInstance.post("/categories/create", data).then(() => {
-    //     //rediriger vers la liste des catégories
-    //     router.push("/categories/list")
-    // }).catch((e) => {
-    //   //prochaine étape, gérer les erreurs venant du back pour les afficher à l'emplacement dédié
-    //   setError("name", {message: "Une erreur s'est produite"})
-
-    // });
+    axiosInstance.post<Ad>("ads/create", data).then((result) => {
+      router.push(`/categories/view/${result.data.category.id}`);
+    });
+    //!penser à gérer les erreurs (setError);
   };
   useEffect(() => {
     axiosInstance.get<Category[]>("/categories/list").then((response) => {
-      console.log(response.data);
       setCategories(response.data);
       setLoading(false);
     });

@@ -44,11 +44,11 @@ class Ad {
   @Column()
   location: string;
 
-  @Column({unique: true})
+  @Column({ unique: true })
   slug: string;
 
   @Column({ default: Date.now() })
-  protected createdAt: number;
+  createdAt: number;
 
   @ManyToOne(() => Category, (c) => c.ads, {
     nullable: false,

@@ -18,7 +18,7 @@ router.post("/create", async function (req: Request, res: Response) {
   }: AdCreateInput = req.body;
 
   try {
-    const result: Ad[] = await new AdServices().create({
+    const result: Ad = await new AdServices().create({
       description,
       location,
       owner,
@@ -43,6 +43,7 @@ router.get("/list", async function (req: Request, res: Response) {
 
 router.get("/find/:id", async function (req: Request, res: Response) {
   const id = +req.params.id;
+  console.log("ID", id);
   try {
     const ad: Ad = await new AdServices().find(id);
     res.send(ad);
