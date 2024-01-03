@@ -1,12 +1,11 @@
 import "reflect-metadata";
 import typeDefs from "./typedefs";
 import resolvers from "./resolvers";
+import datasource from "./lib/datasource";
 
-// import express from "express";
 // import adsRouter from "./routes/ads.routes";
 // import categoriesRouter from "./routes/categories.routes";
 // import tagsRouter from "./routes/tags.routes";
-// import datasource from "./lib/datasource";
 // import cors from "cors";
 
 // const app = express();
@@ -40,7 +39,7 @@ const server = new ApolloServer<{}>({
 //  3. prepares your app to handle incoming requests
 
 async function main(){
-
+  await datasource.initialize()
   const { url } = await startStandaloneServer(server, {
     listen: { port: 4005 },
   });

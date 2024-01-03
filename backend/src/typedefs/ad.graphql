@@ -1,0 +1,13 @@
+type Ad {
+    id: ID
+    title: String
+    description: String
+    owner: String
+    price: Float
+    picture: String
+    location: String
+    slug: String
+    createdAt: String
+    category: Category
+    # tags: [Tag]
+}

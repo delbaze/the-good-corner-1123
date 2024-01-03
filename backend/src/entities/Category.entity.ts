@@ -1,6 +1,8 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import Ad from "./Ad.entity";
 
+
+
 @Entity()
 class Category {
   @PrimaryGeneratedColumn()

@@ -14,7 +14,7 @@ class CategoryServices {
     return await this.list();
   }
   async list() {
-    return await this.db.find();
+    return await this.db.find({ relations: { ads: true } });
   }
 
   async find(id: number) {
