@@ -19,9 +19,12 @@ export default {
       _: any,
       { infos }: { infos: CategoryCreateInput }
     ) => {
-      console.log("INFOS", infos)
       const result: Category = await new CategoryServices().create(infos);
       return result;
+    },
+    deleteCategory: async (_: any, { id }: { id: string }) => {
+      const categories: Category[] = await new CategoryServices().delete(+id);
+      return categories;
     },
   },
 };

@@ -12,6 +12,7 @@ type Query {
 
 type Mutation {
     createCategory(infos: CategoryCreateInput): Category
+    deleteCategory(id: ID): [Category]
 }
 
 input CategoryCreateInput {

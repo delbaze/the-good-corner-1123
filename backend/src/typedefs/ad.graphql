@@ -11,3 +11,37 @@ type Ad {
     category: Category
     # tags: [Tag]
 }
+input CategoryAdCreate {
+    id: ID
+}
+input AdCreateInput {
+    title: String
+    description: String
+    owner: String
+    price: Float
+    picture: String
+    location: String
+    category: CategoryAdCreate
+    tags: [String]
+}
+input AdUpdateInput {
+    title: String
+    description: String
+    owner: String
+    price: Float
+    picture: String
+    location: String
+    category: CategoryAdCreate
+    tags: [String]
+}
+
+type Query {
+    listAds(search: String): [Ad]
+    findAd(id: ID): Ad
+}
+
+type Mutation {
+    createAd(infos: AdCreateInput): Ad
+    deleteAd(id: ID): [Ad]
+    updateAd(id: ID, infos: AdUpdateInput): Ad
+}
