@@ -7,4 +7,5 @@ type Category {
 
 type Query {
     listCategories: [Category]
+    findCategory(id: ID): Category
 }

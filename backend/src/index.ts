@@ -31,6 +31,9 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 const server = new ApolloServer<{}>({
   typeDefs,
   resolvers,
+  // formatError(formattedError, error) {
+  //   return formattedError
+  // },
 });
 
 // Passing an ApolloServer instance to the `startStandaloneServer` function:
@@ -42,6 +45,7 @@ async function main(){
   await datasource.initialize()
   const { url } = await startStandaloneServer(server, {
     listen: { port: 4005 },
+  
   });
   
   console.log(`🚀  Server ready at: ${url}`);
