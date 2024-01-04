@@ -9,3 +9,11 @@ type Query {
     listCategories: [Category]
     findCategory(id: ID): Category
 }
+
+type Mutation {
+    createCategory(infos: CategoryCreateInput): Category
+}
+
+input CategoryCreateInput {
+    name: String
+}

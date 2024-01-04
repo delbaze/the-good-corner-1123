@@ -10,8 +10,10 @@ class CategoryServices {
   }
   async create(data: CategoryCreateInput) {
     const newCategory = this.db.create(data);
-    await this.db.save(newCategory);
-    return await this.list();
+    newCategory.ads = []
+    console.log('NEW CATEGORY', newCategory);
+    return await this.db.save(newCategory);
+    // return await this.list();
   }
   async list() {
     return await this.db.find({ relations: { ads: true } });

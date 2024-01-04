@@ -5,30 +5,30 @@ import { Request, Response, Router } from 'express';
 
 const router = Router();
 
-router.post("/create", async function (req: Request, res: Response) {
-  try {
-    const { name }: CategoryCreateInput = req.body;
-    const result: Category[] = await new CategoryServices().create({
-      name,
-    });
-    res.send(result);
-  } catch (err: any) {
-    res.send({ message: err.message, success: false });
-  }
-});
-router.get("/list", async function (req: Request, res: Response) {
-  const categories: Category[] = await new CategoryServices().list();
-  res.send(categories);
-});
-router.get("/find/:id", async function (req: Request, res: Response) {
-  const id = +req.params.id;
-  try {
-    const category: Category = await new CategoryServices().find(id);
-    res.send(category);
-  } catch (err: any) {
-    res.send({ message: err.message, success: false });
-  }
-});
+// router.post("/create", async function (req: Request, res: Response) {
+//   try {
+//     const { name }: CategoryCreateInput = req.body;
+//     const result: Category[] = await new CategoryServices().create({
+//       name,
+//     });
+//     res.send(result);
+//   } catch (err: any) {
+//     res.send({ message: err.message, success: false });
+//   }
+// });
+// router.get("/list", async function (req: Request, res: Response) {
+//   const categories: Category[] = await new CategoryServices().list();
+//   res.send(categories);
+// });
+// router.get("/find/:id", async function (req: Request, res: Response) {
+//   const id = +req.params.id;
+//   try {
+//     const category: Category = await new CategoryServices().find(id);
+//     res.send(category);
+//   } catch (err: any) {
+//     res.send({ message: err.message, success: false });
+//   }
+// });
 router.patch("/update/:id", async function (req: Request, res: Response) {
   const id = +req.params.id;
   const data: Partial<Category> = req.body;
