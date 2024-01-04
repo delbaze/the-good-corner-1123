@@ -39,7 +39,7 @@ class AdServices {
   async find(id: number) {
     const ad = await this.db.findOne({
       where: { id },
-      relations: { tags: true },
+      relations: { tags: true, category: true },
     });
     if (!ad) {
       throw new Error("L'annonce n'existe pas");
