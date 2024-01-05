@@ -55,7 +55,7 @@ class AdServices {
 
   async update(
     id: number,
-    { tags, ...data }: Partial<Ad> & { tags: string[] }
+    { tags, ...data }: Partial<AdCreateInput>
   ) {
     const ad = await this.find(id);
     const newInfos = this.db.merge(ad, data); // petite info, le merge permet d'ignorer les clés qui n'existent pas dans l'entité! vous voyez l'intéret d'un ORM? Tout est lié

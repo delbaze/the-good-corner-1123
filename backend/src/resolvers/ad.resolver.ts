@@ -16,11 +16,11 @@ export default {
     },
     updateAd: async (
       _: any,
-      { id, infos }: { id: string; infos: Partial<Ad> }
+      { id, infos }: { id: string; infos: AdCreateInput }
     ) => {
       const ad: Ad = await new AdServices().update(
         +id,
-        infos as Partial<Ad> & { tags: string[] }
+        infos 
       );
       return ad;
     },
