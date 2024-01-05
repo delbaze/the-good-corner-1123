@@ -12,7 +12,9 @@ import {
 import Category from "./Category.entity";
 import Tag from "./Tag.entity";
 import slugify from "slugify";
+import { Field, Float, ID, ObjectType } from "type-graphql";
 
+@ObjectType()
 @Entity()
 class Ad {
   @BeforeUpdate()
@@ -23,33 +25,43 @@ class Ad {
     )}`;
   }
 
+  @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Field()
   @Column()
   title: string;
 
+  @Field()
   @Column()
   description: string;
 
+  @Field()
   @Column()
   owner: string;
 
+  @Field(() => Float)
   @Column()
   price: number;
 
+  @Field()
   @Column()
   picture: string;
 
+  @Field()
   @Column()
   location: string;
 
+  @Field()
   @Column({ unique: true })
   slug: string;
 
+  @Field(() => String)
   @Column({ default: Date.now() })
   createdAt: number;
 
+  @Field(() => Category) 
   @ManyToOne(() => Category, (c) => c.ads, {
     nullable: false,
     onDelete: "CASCADE",

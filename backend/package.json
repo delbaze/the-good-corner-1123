@@ -24,9 +24,11 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "graphql": "^16.8.1",
+    "graphql-scalars": "^1.22.4",
     "reflect-metadata": "^0.1.13",
     "slugify": "^1.6.6",
     "sqlite3": "^5.1.6",
+    "type-graphql": "^2.0.0-beta.4",
     "typeorm": "^0.3.17"
   }
 }
