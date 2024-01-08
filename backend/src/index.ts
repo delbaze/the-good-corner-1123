@@ -1,22 +1,20 @@
 import "reflect-metadata";
-// import typeDefs from "./typedefs";
-// import resolvers from "./resolvers";
 import datasource from "./lib/datasource";
 import { ApolloServer } from '@apollo/server';
 import { buildSchema } from "type-graphql";
 import { startStandaloneServer } from '@apollo/server/standalone';
 import CategoryResolver from "./resolvers/category.resolver";
+import AdResolver from "./resolvers/ad.resolver";
+import TagResolver from "./resolvers/tag.resolver";
 
 
 
 
 async function main(){
   const schema = await buildSchema({
-    resolvers: [CategoryResolver]
+    resolvers: [AdResolver, CategoryResolver, TagResolver]
   })
   const server = new ApolloServer<{}>({
-    // typeDefs,
-    // resolvers,
     schema
   });
 

@@ -1,13 +1,10 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import Ad from "./Ad.entity";
-import { Field, ID, ObjectType } from "type-graphql";
-
-
+import { Field, ID, InputType, ObjectType } from "type-graphql";
 
 @ObjectType()
 @Entity()
 class Category {
-  
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
@@ -21,5 +18,10 @@ class Category {
   ads: Ad[];
 }
 
+@InputType()
+export class CategoryCreateInput {
+  @Field()
+  name: string;
+}
 
 export default Category;

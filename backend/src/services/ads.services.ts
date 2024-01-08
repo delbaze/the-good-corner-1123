@@ -1,6 +1,5 @@
-import Ad from "../entities/Ad.entity";
+import Ad, { AdCreateInput } from "../entities/Ad.entity";
 import datasource from "../lib/datasource";
-import { AdCreateInput } from "../types/ads";
 import { Like, Repository } from "typeorm";
 import CategoryServices from "./categories.services";
 import TagsServices from "./tags.services";
@@ -14,7 +13,7 @@ class AdServices {
     this.dbTag = datasource.getRepository(Tag);
   }
   async create(data: AdCreateInput) {
-    const category = await new CategoryServices().find(data.category.id);
+    const category = await new CategoryServices().find(+data.category.id);
     let tags: Tag[] = [];
     if (data?.tags?.length) {
       tags = await new TagsServices().list(data.tags);

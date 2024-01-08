@@ -1,7 +1,6 @@
 import datasource from "../lib/datasource";
-import Tag from "../entities/Tag.entity";
+import Tag, { TagCreateInput } from "../entities/Tag.entity";
 import { In, Repository } from "typeorm";
-import { TagCreateInput } from "../types/tags";
 
 class TagsServices {
   db: Repository<Tag>;

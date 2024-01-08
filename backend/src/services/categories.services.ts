@@ -1,6 +1,5 @@
-import Category from "../entities/Category.entity";
+import Category, { CategoryCreateInput } from "../entities/Category.entity";
 import datasource from "../lib/datasource";
-import { CategoryCreateInput } from "../types/categories";
 import { Repository } from "typeorm";
 
 class CategoryServices {
@@ -8,12 +7,10 @@ class CategoryServices {
   constructor() {
     this.db = datasource.getRepository(Category);
   }
-  async create(data: CategoryCreateInput) {
+  async create(data: Partial<CategoryCreateInput>) {
     const newCategory = this.db.create(data);
-    newCategory.ads = []
-    console.log('NEW CATEGORY', newCategory);
+    newCategory.ads = [];
     return await this.db.save(newCategory);
-    // return await this.list();
   }
   async list() {
     return await this.db.find({ relations: { ads: true } });

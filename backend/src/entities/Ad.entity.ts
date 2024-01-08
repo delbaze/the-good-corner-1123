@@ -12,7 +12,7 @@ import {
 import Category from "./Category.entity";
 import Tag from "./Tag.entity";
 import slugify from "slugify";
-import { Field, Float, ID, ObjectType } from "type-graphql";
+import { Field, Float, ID, InputType, ObjectType } from "type-graphql";
 
 @ObjectType()
 @Entity()
@@ -34,7 +34,7 @@ class Ad {
   title: string;
 
   @Field()
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @Field()
@@ -61,7 +61,7 @@ class Ad {
   @Column({ default: Date.now() })
   createdAt: number;
 
-  @Field(() => Category) 
+  @Field(() => Category)
   @ManyToOne(() => Category, (c) => c.ads, {
     nullable: false,
     onDelete: "CASCADE",
@@ -71,5 +71,64 @@ class Ad {
   @ManyToMany(() => Tag, { cascade: ["insert", "update"] })
   @JoinTable()
   tags: Tag[];
+}
+
+@InputType()
+export class PartialCategoryInput {
+  @Field()
+  id: number;
+}
+
+@InputType()
+export class AdCreateInput {
+  @Field()
+  title: string;
+
+  @Field({ nullable: true })
+  description: string;
+
+  @Field()
+  owner: string;
+
+  @Field(() => Float)
+  price: number;
+
+  @Field()
+  location: string;
+
+  @Field()
+  picture: string;
+
+  @Field()
+  category: PartialCategoryInput;
+
+  @Field(() => [String], { nullable: true })
+  tags?: string[];
+}
+@InputType()
+export class AdUpdateInput {
+  @Field({ nullable: true })
+  title: string;
+
+  @Field({ nullable: true })
+  description: string;
+
+  @Field({ nullable: true })
+  owner: string;
+
+  @Field(() => Float, { nullable: true })
+  price: number;
+
+  @Field({ nullable: true })
+  location: string;
+
+  @Field({ nullable: true })
+  picture: string;
+
+  @Field({ nullable: true })
+  category: PartialCategoryInput;
+
+  @Field(() => [String], { nullable: true })
+  tags?: string[];
 }
 export default Ad;

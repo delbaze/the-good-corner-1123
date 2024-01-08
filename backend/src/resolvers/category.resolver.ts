@@ -1,15 +1,38 @@
-import { Query, Resolver } from "type-graphql";
-import Category from "../entities/Category.entity";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import Category, { CategoryCreateInput } from "../entities/Category.entity";
 import CategoryServices from "../services/categories.services";
-import { CategoryCreateInput } from "../types/categories";
 
 @Resolver()
 export default class CategoryResolver {
-    @Query(() => [Category])
-    async listCategories() {
-      const categories: Category[] = await new CategoryServices().list();
-      console.log("CATEGORIES", categories);
-      return categories;
-    }
+  @Query(() => [Category])
+  async listCategories() {
+    const categories: Category[] = await new CategoryServices().list();
+    return categories;
+  }
 
+  @Query(() => Category)
+  async findCategory(@Arg("id") id: string) {
+    const category = await new CategoryServices().find(+id);
+    return category;
+  }
+  @Mutation(() => Category)
+  async createCategory(@Arg("infos") infos: CategoryCreateInput) {
+    const newCategory = await new CategoryServices().create({ ...infos });
+    return newCategory;
+  }
+  @Mutation(() => Category)
+  async updateCategory(
+    @Arg("id") id: string,
+    @Arg("infos") infos: CategoryCreateInput
+  ) {
+    const newCategory = await new CategoryServices().update(+id, infos);
+    return newCategory;
+  }
+
+  @Mutation(() => [Category])
+  async deleteCategory(@Arg("id") id: string){
+    const categories: Category[] = await new CategoryServices().delete(+id);
+    return categories;
+
+  }
 }
