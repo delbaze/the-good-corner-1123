@@ -1,7 +1,8 @@
-import { Arg, Mutation, Query } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import Ad, { AdCreateInput, AdUpdateInput } from "../entities/Ad.entity";
 import AdServices from "../services/ads.services";
 
+@Resolver()
 export default class AdResolver {
   @Query(() => [Ad])
   async listAds(@Arg("search", { nullable: true }) search: string) {
@@ -22,15 +23,15 @@ export default class AdResolver {
     return result;
   }
 
-  @Mutation(() => [Ad])
-  async deleteAd(@Arg("id") id: string) {
-    const ads: Ad[] = await new AdServices().delete(+id);
-    return ads;
-  }
-
   @Mutation(() => Ad)
   async updateAd(@Arg("id") id: string, @Arg("infos") infos: AdUpdateInput) {
     const ad: Ad = await new AdServices().update(+id, infos);
     return ad;
+  }
+
+  @Mutation(() => [Ad])
+  async deleteAd(@Arg("id") id: string) {
+    const ads: Ad[] = await new AdServices().delete(+id);
+    return ads;
   }
 }

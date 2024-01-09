@@ -1,7 +1,9 @@
-import { Arg, Mutation, Query } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import Tag, { TagCreateInput, TagUpdateInput } from "../entities/Tag.entity";
 import TagsServices from "../services/tags.services";
 
+
+@Resolver()
 export default class TagResolver {
   @Query(() => [Tag])
   async listTags() {
