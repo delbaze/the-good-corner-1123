@@ -1,29 +1,27 @@
 import AdsGrid from "@/components/ads/AdsGrid";
 import Back from "@/components/common/Back";
-import axiosInstance from "@/lib/axiosInstance";
-import { Category } from "@/types/category";
+import {useFindCategoryLazyQuery } from "@/types/graphql";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 function CategoryAds() {
   const router = useRouter();
-  const [category, setCategory] = useState<Category>();
+  // const [findCategory, {data, loading, error}] = useLazyQuery<FindCategoryQuery, FindCategoryQueryVariables>(FIND_CATEGORY)
+  const [findCategory, {data, loading}] = useFindCategoryLazyQuery()
   useEffect(() => {
     if (router.isReady) {
-      axiosInstance
-        .get<Category>(
-          `/categories/find/${router.query.id}`
-        )
-        .then((result) => {
-          setCategory(result.data);
-        });
+      findCategory({variables: {findCategoryId: router.query.id as string}})
     }
   }, [router.isReady]);
+
+  if (loading){
+    return <div>Chargement en cours</div>
+  }
   return (
     <div>
       <Back />
-      <h1>{category?.name}</h1>
-      {category?.ads.length ? (
-        <AdsGrid ads={category.ads} />
+      <h1>{data?.findCategory.name}</h1>
+      {data?.findCategory.ads.length ? (
+        <AdsGrid ads={data?.findCategory.ads} />
       ) : (
         <div>Aucune annonce dans cette catégorie</div>
       )}

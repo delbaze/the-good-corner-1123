@@ -1,36 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import axiosInstance from "@/lib/axiosInstance";
-import { Ad } from "@/types/ad";
 import Back from "@/components/common/Back";
+import { useFindAdLazyQuery } from "@/types/graphql";
 
 function AdDetails() {
-  const [ad, setAd] = useState<Ad>();
+
   const router = useRouter();
 
+  const [findAd, {data, loading}] = useFindAdLazyQuery()
   useEffect(() => {
     if (router.isReady) {
-      axiosInstance
-        .get<Ad>(`/ads/find/${router.query.id}`)
-        .then((result) => {
-          console.log('%c⧭', 'color: #807160', result);
-          setAd(result.data);
-        });
+      findAd({variables: {findAdId: router.query.id as string}})
     }
   }, [router.isReady, router.query]);
 
+  if (loading){
+    <div>Chargement en cours</div>
+  }
   return (
     <div>
       <Back />
-      {ad ? (
+      {data?.findAd ? (
         <>
-          <h1>{ad.title}</h1>
-          <p>Description : {ad.description}</p>
-          <p>Localité : {ad.location}</p>
-          <p>Créé le : {new Date(ad.createdAt).toLocaleString()}</p>
+          <h1>{data?.findAd.title}</h1>
+          <p>Description : {data?.findAd.description}</p>
+          <p>Localité : {data?.findAd.location}</p>
+          <p>Créé le : {new Date(data?.findAd.createdAt).toLocaleString()}</p>
           <div>
-            <Image width={50} height={50} alt={ad.title} src={ad.picture} />
+            <Image width={50} height={50} alt={data?.findAd.title} src={data?.findAd.picture} />
           </div>
         </>
       ) : (

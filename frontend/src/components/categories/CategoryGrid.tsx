@@ -1,7 +1,7 @@
-import { Category } from "@/types/category";
+import {  ListCategoriesQuery } from "@/types/graphql";
 import Link from "next/link";
 
-function CategoryGrid({ categories }: { categories: Category[] }) {
+function CategoryGrid({ categories }: { categories: ListCategoriesQuery["listCategories"] }) {
   return (
     <ul>
       {categories.map((c) => (

@@ -1,8 +1,8 @@
-import { Ad } from "@/types/ad";
 import AdCard from "./AdCard";
 import styles from "@/styles/Ad.module.css";
+import { FindCategoryQuery } from "@/types/graphql";
 
-function AdsGrid({ ads }: { ads: Ad[] }) {
+function AdsGrid({ ads }: { ads: FindCategoryQuery["findCategory"]["ads"] }) {
   return (
     <div className={styles.adGrid}>
       {ads.map((ad) => (

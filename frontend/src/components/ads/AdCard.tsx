@@ -2,7 +2,8 @@ import { Ad } from "@/types/ad";
 import Image from "next/image";
 import styles from "@/styles/Ad.module.css";
 import Link from "next/link";
-function AdCard({ ad }: { ad: Ad }) {
+import { FindCategoryQuery } from "@/types/graphql";
+function AdCard({ ad }: { ad: FindCategoryQuery["findCategory"]["ads"][0]}) {
   return (
     <div key={ad.id} className={styles.adCard}>
       <div>{ad.title}</div>
