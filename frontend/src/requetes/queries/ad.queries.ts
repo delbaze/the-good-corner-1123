@@ -13,3 +13,15 @@ export const FIND_AD = gql`
     }
   }
 `;
+
+export const LIST_AD_WITH_FILTER = gql`
+  query ListAdsWithFilter($search: String) {
+    listAds(search: $search) {
+      category {
+        name
+      }
+      id
+      title
+    }
+  }
+`;

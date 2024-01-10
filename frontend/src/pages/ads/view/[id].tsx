@@ -5,18 +5,18 @@ import Back from "@/components/common/Back";
 import { useFindAdLazyQuery } from "@/types/graphql";
 
 function AdDetails() {
-
   const router = useRouter();
 
-  const [findAd, {data, loading}] = useFindAdLazyQuery()
+  const [findAd, { data, loading }] = useFindAdLazyQuery();
+
   useEffect(() => {
     if (router.isReady) {
-      findAd({variables: {findAdId: router.query.id as string}})
+      findAd({ variables: { findAdId: router.query.id as string } });
     }
   }, [router.isReady, router.query]);
 
-  if (loading){
-    <div>Chargement en cours</div>
+  if (loading) {
+    <div>Chargement en cours</div>;
   }
   return (
     <div>
@@ -26,9 +26,14 @@ function AdDetails() {
           <h1>{data?.findAd.title}</h1>
           <p>Description : {data?.findAd.description}</p>
           <p>Localité : {data?.findAd.location}</p>
-          <p>Créé le : {new Date(data?.findAd.createdAt).toLocaleString()}</p>
+          <p>Créé le : {new Date(+data?.findAd.createdAt).toLocaleString()}</p>
           <div>
-            <Image width={50} height={50} alt={data?.findAd.title} src={data?.findAd.picture} />
+            <Image
+              width={50}
+              height={50}
+              alt={data?.findAd.title}
+              src={data?.findAd.picture}
+            />
           </div>
         </>
       ) : (

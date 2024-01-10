@@ -7,7 +7,7 @@ export default class AdResolver {
   @Query(() => [Ad])
   async listAds(@Arg("search", { nullable: true }) search: string) {
     const ads: Ad[] = await new AdServices().list(
-      search as any as string | undefined
+      search as string | undefined
     );
     return ads;
   }

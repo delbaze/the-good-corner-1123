@@ -2,6 +2,7 @@ import {
   BeforeInsert,
   BeforeUpdate,
   Column,
+  CreateDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
@@ -57,8 +58,8 @@ class Ad {
   slug: string;
 
   @Field(() => String)
-  @Column({ default: Date.now() })
-  createdAt: number;
+  @CreateDateColumn()
+  createdAt: Date;
 
   @Field(() => Category)
   @ManyToOne(() => Category, (c) => c.ads, {

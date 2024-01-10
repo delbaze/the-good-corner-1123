@@ -174,6 +174,13 @@ export type TagUpdateInput = {
   name: Scalars['String']['input'];
 };
 
+export type CreateAdMutationVariables = Exact<{
+  infos: AdCreateInput;
+}>;
+
+
+export type CreateAdMutation = { __typename?: 'Mutation', createAd: { __typename?: 'Ad', category: { __typename?: 'Category', id: string } } };
+
 export type CreateCategoryMutationVariables = Exact<{
   infos: CategoryCreateInput;
 }>;
@@ -188,6 +195,13 @@ export type FindAdQueryVariables = Exact<{
 
 export type FindAdQuery = { __typename?: 'Query', findAd: { __typename?: 'Ad', id: string, title: string, price: number, description: string, location: string, createdAt: string, picture: string } };
 
+export type ListAdsWithFilterQueryVariables = Exact<{
+  search?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type ListAdsWithFilterQuery = { __typename?: 'Query', listAds: Array<{ __typename?: 'Ad', id: string, title: string, category: { __typename?: 'Category', name: string } }> };
+
 export type ListCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -201,6 +215,41 @@ export type FindCategoryQueryVariables = Exact<{
 export type FindCategoryQuery = { __typename?: 'Query', findCategory: { __typename?: 'Category', id: string, name: string, ads: Array<{ __typename?: 'Ad', id: string, title: string, price: number, picture: string }> } };
 
 
+export const CreateAdDocument = gql`
+    mutation CreateAd($infos: AdCreateInput!) {
+  createAd(infos: $infos) {
+    category {
+      id
+    }
+  }
+}
+    `;
+export type CreateAdMutationFn = Apollo.MutationFunction<CreateAdMutation, CreateAdMutationVariables>;
+
+/**
+ * __useCreateAdMutation__
+ *
+ * To run a mutation, you first call `useCreateAdMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAdMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAdMutation, { data, loading, error }] = useCreateAdMutation({
+ *   variables: {
+ *      infos: // value for 'infos'
+ *   },
+ * });
+ */
+export function useCreateAdMutation(baseOptions?: Apollo.MutationHookOptions<CreateAdMutation, CreateAdMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateAdMutation, CreateAdMutationVariables>(CreateAdDocument, options);
+      }
+export type CreateAdMutationHookResult = ReturnType<typeof useCreateAdMutation>;
+export type CreateAdMutationResult = Apollo.MutationResult<CreateAdMutation>;
+export type CreateAdMutationOptions = Apollo.BaseMutationOptions<CreateAdMutation, CreateAdMutationVariables>;
 export const CreateCategoryDocument = gql`
     mutation CreateCategory($infos: CategoryCreateInput!) {
   createCategory(infos: $infos) {
@@ -281,6 +330,50 @@ export type FindAdQueryHookResult = ReturnType<typeof useFindAdQuery>;
 export type FindAdLazyQueryHookResult = ReturnType<typeof useFindAdLazyQuery>;
 export type FindAdSuspenseQueryHookResult = ReturnType<typeof useFindAdSuspenseQuery>;
 export type FindAdQueryResult = Apollo.QueryResult<FindAdQuery, FindAdQueryVariables>;
+export const ListAdsWithFilterDocument = gql`
+    query ListAdsWithFilter($search: String) {
+  listAds(search: $search) {
+    category {
+      name
+    }
+    id
+    title
+  }
+}
+    `;
+
+/**
+ * __useListAdsWithFilterQuery__
+ *
+ * To run a query within a React component, call `useListAdsWithFilterQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListAdsWithFilterQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListAdsWithFilterQuery({
+ *   variables: {
+ *      search: // value for 'search'
+ *   },
+ * });
+ */
+export function useListAdsWithFilterQuery(baseOptions?: Apollo.QueryHookOptions<ListAdsWithFilterQuery, ListAdsWithFilterQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListAdsWithFilterQuery, ListAdsWithFilterQueryVariables>(ListAdsWithFilterDocument, options);
+      }
+export function useListAdsWithFilterLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListAdsWithFilterQuery, ListAdsWithFilterQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListAdsWithFilterQuery, ListAdsWithFilterQueryVariables>(ListAdsWithFilterDocument, options);
+        }
+export function useListAdsWithFilterSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ListAdsWithFilterQuery, ListAdsWithFilterQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ListAdsWithFilterQuery, ListAdsWithFilterQueryVariables>(ListAdsWithFilterDocument, options);
+        }
+export type ListAdsWithFilterQueryHookResult = ReturnType<typeof useListAdsWithFilterQuery>;
+export type ListAdsWithFilterLazyQueryHookResult = ReturnType<typeof useListAdsWithFilterLazyQuery>;
+export type ListAdsWithFilterSuspenseQueryHookResult = ReturnType<typeof useListAdsWithFilterSuspenseQuery>;
+export type ListAdsWithFilterQueryResult = Apollo.QueryResult<ListAdsWithFilterQuery, ListAdsWithFilterQueryVariables>;
 export const ListCategoriesDocument = gql`
     query ListCategories {
   listCategories {

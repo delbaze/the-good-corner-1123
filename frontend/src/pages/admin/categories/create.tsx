@@ -25,17 +25,9 @@ function CreateCategory() {
   const onSubmit = (data: {name: string}) => {
     console.log(data);
     createCategory({variables: {infos: {name: data.name}}, onCompleted(data) {
-        console.log('%c⧭', 'color: #00a3cc', data);
         router.push("/categories/list")
-    },})
-    // axiosInstance.post("/categories/create", data).then(() => {
-    //     //rediriger vers la liste des catégories
-    //     router.push("/categories/list")
-    // }).catch((e) => {
-    //   //prochaine étape, gérer les erreurs venant du back pour les afficher à l'emplacement dédié
-    //   setError("name", {message: "Une erreur s'est produite"})
+    }})
 
-    // });
   };
   return (
     <div>

@@ -1,49 +1,29 @@
 import styles from "@/styles/Searchbar.module.css";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { SyntheticEvent, useState } from "react";
-import axiosInstance from "@/lib/axiosInstance";
+import { SyntheticEvent } from "react";
 import Link from "next/link";
-import { Ad } from "@/types/ad";
+import { useListAdsWithFilterLazyQuery } from "@/types/graphql";
 function SearchBar() {
-  // return <input placeholder="Rechercher" className={styles.inputSearch} />;
-  // const demo = [
-  //   {
-  //     name: "toto",
-  //     id: 123,
-  //     category: "Chaussure",
-  //   },
-  //   {
-  //     name: "tata",
-  //     id: 456,
-  //     category: "Voiture",
-  //   },
-  // ];
-  const [ads, setAds] = useState<Ad[]>([]);
-  const handleChange = (e: SyntheticEvent<Element, Event>) => {
-    console.log("Je dois rediriger vers l'annonce ici");
-  };
+
+  const [getListAds, {data, loading}] = useListAdsWithFilterLazyQuery()
+
 
   const handleSearch = (e: SyntheticEvent<Element, Event>, value: string) => {
-    console.log(value);
-    console.log("Faire le requête à partir de la valeur de l'input"); //http://localhost:4000/ads/list?search=marecherche&categoryid=2
-    axiosInstance.get<Ad[]>(`/ads/list?search=${value}`).then((response) => {
-      console.log(response);
-      setAds(response.data);
-    });
+    getListAds({variables: {search: value}})
   };
   return (
     <Autocomplete
       id="grouped-demo"
-      options={ads}
+      loading={loading}
+      options={data?.listAds ?? []}
       groupBy={(option) => option.category.name}
       getOptionLabel={(option) => option.title}
       sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params} label="Recherche" />}
-      onChange={handleChange}
       onInputChange={handleSearch}
       renderOption={(props, option, state) => (
-        <li {...props}>
+        <li {...props} key={option.id}>
           <Link href={`/ads/view/${option.id}`} >
             <p style={{ paddingLeft: "2rem" }} key={state.index}>
               {option.title}

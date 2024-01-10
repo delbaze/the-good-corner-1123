@@ -1,11 +1,8 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import axiosInstance from "@/lib/axiosInstance";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { Category } from "@/types/category";
-import { Ad } from "@/types/ad";
+import { useCreateAdMutation, useListCategoriesQuery } from "@/types/graphql";
 
 const schema = yup.object({
   title: yup.string().required("Attention, le titre de l'annonce est requis"),
@@ -19,10 +16,20 @@ const schema = yup.object({
   }),
 });
 
+type FormType = {
+  category: { id: number };
+  description: string;
+  location: string;
+  owner: string;
+  picture: string;
+  price: number;
+  title: string;
+};
+
 function CreateAd() {
   const router = useRouter();
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [createAd, { loading: loadingAd }] = useCreateAdMutation();
+  // const [loading, setLoading] = useState(true);
   const {
     register,
     handleSubmit,
@@ -33,18 +40,18 @@ function CreateAd() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: any) => {
-    axiosInstance.post<Ad>("ads/create", data).then((result) => {
-      router.push(`/categories/view/${result.data.category.id}`);
+  const { data, loading } = useListCategoriesQuery();
+
+  const onSubmit = (data: FormType) => {
+    createAd({
+      variables: { infos: data },
+      onCompleted(data) {
+        router.push(`/categories/view/${data.createAd.category.id}`);
+      },
     });
     //!penser à gérer les erreurs (setError);
   };
-  useEffect(() => {
-    axiosInstance.get<Category[]>("/categories/list").then((response) => {
-      setCategories(response.data);
-      setLoading(false);
-    });
-  }, []);
+
   return (
     <div>
       {loading ? (
@@ -71,7 +78,7 @@ function CreateAd() {
 
           <select {...register("category.id")}>
             <option>Choisissez votre catégorie</option>
-            {categories.map((c) => (
+            {data?.listCategories.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name}
               </option>
@@ -79,7 +86,7 @@ function CreateAd() {
             {/**boucle sur les categories pour créer une option pour chacune d'entre elles */}
           </select>
 
-          <input type="submit" />
+          <input type="submit" disabled={loadingAd} />
         </form>
       )}
     </div>
