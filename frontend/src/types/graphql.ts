@@ -314,7 +314,7 @@ export const FindAdDocument = gql`
  *   },
  * });
  */
-export function useFindAdQuery(baseOptions: Apollo.QueryHookOptions<FindAdQuery, FindAdQueryVariables>) {
+export function useFindAdQuery(baseOptions: Apollo.QueryHookOptions<FindAdQuery, FindAdQueryVariables> & ({ variables: FindAdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindAdQuery, FindAdQueryVariables>(FindAdDocument, options);
       }
@@ -445,7 +445,7 @@ export const FindCategoryDocument = gql`
  *   },
  * });
  */
-export function useFindCategoryQuery(baseOptions: Apollo.QueryHookOptions<FindCategoryQuery, FindCategoryQueryVariables>) {
+export function useFindCategoryQuery(baseOptions: Apollo.QueryHookOptions<FindCategoryQuery, FindCategoryQueryVariables> & ({ variables: FindCategoryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<FindCategoryQuery, FindCategoryQueryVariables>(FindCategoryDocument, options);
       }
