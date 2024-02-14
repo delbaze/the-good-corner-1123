@@ -2,33 +2,32 @@ services:
   backend:
     build: ./backend
     ports:
-      - 4005:4005
+      - '4005:4005'
     volumes:
-      - ./backend/src:/app/src
-      - ./backend/thegoodcorner.sqlite:/app/thegoodcorner.sqlite
-  
+      - './backend/src:/app/src'
+      - './backend/thegoodcorner.sqlite:/app/thegoodcorner.sqlite'
+    env_file:
+      - ./.env
     healthcheck:
       test:
-        [
-          "CMD-SHELL",
-          "curl -f http://backend:4005/graphql?query=%7B__typename%7D -H 'Apollo-Require-Preflight: true' || exit 1",
-        ]
+        - CMD-SHELL
+        - 'curl -f http://backend:4005/graphql?query=%7B__typename%7D -H ''Apollo-Require-Preflight: true'' || exit 1'
       interval: 10s
       timeout: 30s
       retries: 5
   frontend:
     build: ./frontend
-    # command: "sh -c ./start.sh"
     ports:
-      - 3000:3000
+      - '3000:3000'
     volumes:
-      - ./frontend/src:/app/src
+      - './frontend/src:/app/src'
     depends_on:
       backend:
         condition: service_healthy
-
+    env_file:
+      - ./.env
   adminer:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - '8080:8080'
