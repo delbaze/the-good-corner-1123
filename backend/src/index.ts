@@ -54,7 +54,7 @@ async function main() {
     "/",
     cors<cors.CorsRequest>({
       origin: ["http://localhost:3000", "https://studio.apollographql.com"],
-      credentials: true,
+      credentials: true
     }),
     express.json(),
     expressMiddleware(server)

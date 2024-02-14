@@ -26,8 +26,4 @@ services:
         condition: service_healthy
     env_file:
       - ./.env
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - '8080:8080'
+  

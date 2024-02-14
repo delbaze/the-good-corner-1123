@@ -3,7 +3,6 @@ FROM node:lts-alpine
 RUN mkdir /app
 WORKDIR /app
 COPY package.json .
-COPY package.json ./toto.txt
 RUN npm i 
 
 
