@@ -40,7 +40,7 @@ services:
     ports:
       - 5432:5432
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: ["CMD-SHELL", "pg_isready -d thegoodcorner -U utilisateur"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -56,5 +56,14 @@ services:
     restart: always
     ports:
       - 8080:8080
+  
+  images:
+    build: ./images
+    volumes:
+      - ./images/uploads:/app/uploads
+    ports:
+      - 6000:6000
+    env_file:
+      - ./.env
 volumes:
   gcdatabase:
