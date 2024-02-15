@@ -33,7 +33,7 @@ CMD npm run start
 
 
 
-# AVEC MULTI STAGING
+# # AVEC MULTI STAGING
 # # Première étape : installer les dépendances et compiler le code
 # FROM node:lts-alpine AS builder
 # WORKDIR /app

@@ -6,6 +6,7 @@ services:
     volumes:
       - './backend/src:/app/src'
       - './backend/thegoodcorner.sqlite:/app/thegoodcorner.sqlite'
+      # - 'demoback:/app/src/entities'
     env_file:
       - ./.env
     healthcheck:
@@ -21,9 +22,13 @@ services:
       - '3000:3000'
     volumes:
       - './frontend/src:/app/src'
+      # - 'demoback:/app/entities'
     depends_on:
       backend:
         condition: service_healthy
     env_file:
       - ./.env
-  
+
+
+# volumes:
+#   demoback:
