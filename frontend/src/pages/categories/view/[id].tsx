@@ -18,6 +18,16 @@ function CategoryAds() {
     }
   }, [router.isReady]);
 
+  const callRequest = (p: number, limit: number) => {
+    console.log(p, limit);
+    findCategory({
+      variables: {
+        findCategoryId: router.query.id as string,
+        limit,
+        skip: (p - 1) * limit,
+      },
+    });
+  };
   if (loading) {
     return <div>Chargement en cours</div>;
   }
@@ -28,7 +38,10 @@ function CategoryAds() {
       {data?.findCategory.ads.length ? (
         <>
           <AdsGrid ads={data?.findCategory.ads} />
-          <Pagination count={data?.findCategory.count} />
+          <Pagination
+            count={data?.findCategory.count}
+            callRequest={callRequest}
+          />
         </>
       ) : (
         <div>Aucune annonce dans cette catégorie</div>

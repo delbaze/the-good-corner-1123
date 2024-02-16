@@ -155,6 +155,8 @@ export type QueryFindAdArgs = {
 
 export type QueryFindCategoryArgs = {
   id: Scalars['String']['input'];
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
 };
 
 
@@ -216,6 +218,8 @@ export type ListCategoriesQuery = { __typename?: 'Query', listCategories: Array<
 
 export type FindCategoryQueryVariables = Exact<{
   findCategoryId: Scalars['String']['input'];
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  skip?: InputMaybe<Scalars['Float']['input']>;
 }>;
 
 
@@ -422,8 +426,8 @@ export type ListCategoriesLazyQueryHookResult = ReturnType<typeof useListCategor
 export type ListCategoriesSuspenseQueryHookResult = ReturnType<typeof useListCategoriesSuspenseQuery>;
 export type ListCategoriesQueryResult = Apollo.QueryResult<ListCategoriesQuery, ListCategoriesQueryVariables>;
 export const FindCategoryDocument = gql`
-    query FindCategory($findCategoryId: String!) {
-  findCategory(id: $findCategoryId) {
+    query FindCategory($findCategoryId: String!, $limit: Float, $skip: Float) {
+  findCategory(id: $findCategoryId, limit: $limit, skip: $skip) {
     ads {
       id
       title
@@ -452,6 +456,8 @@ export const FindCategoryDocument = gql`
  * const { data, loading, error } = useFindCategoryQuery({
  *   variables: {
  *      findCategoryId: // value for 'findCategoryId'
+ *      limit: // value for 'limit'
+ *      skip: // value for 'skip'
  *   },
  * });
  */

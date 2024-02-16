@@ -14,8 +14,16 @@ export default class CategoryResolver {
   }
 
   @Query(() => CategoryWithAdsCounted)
-  async findCategory(@Arg("id") id: string) {
-    const categoryWithAdsAndCounter = await new CategoryServices().find(+id);
+  async findCategory(
+    @Arg("id") id: string,
+    @Arg("limit", { nullable: true }) limit?: number,
+    @Arg("skip", { nullable: true }) skip?: number
+  ) {
+    const categoryWithAdsAndCounter = await new CategoryServices().find(
+      +id,
+      limit,
+      skip
+    );
     return categoryWithAdsAndCounter;
   }
   @Mutation(() => Category)

@@ -19,7 +19,7 @@ class CategoryServices {
     return await this.db.find({ relations: { ads: true } });
   }
 
-  async find(id: number) {
+  async find(id: number, limit?: number, skip?: number) {
     // const categoryTest = await this.db
     //   .createQueryBuilder("c")
     //   .leftJoinAndSelect("c.ads", "ads")
@@ -38,8 +38,8 @@ class CategoryServices {
     }
     const ads = await this.dbAds.findAndCount({
       where: { category: { id: category.id } },
-      skip: 2,
-      take: 2
+      skip,
+      take: limit
     });
     if (!category) {
       throw new Error("La catégorie n'existe pas");
