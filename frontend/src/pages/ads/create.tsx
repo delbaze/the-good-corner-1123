@@ -14,7 +14,7 @@ const schema = yup.object({
   location: yup.string().required("La localité est requise"),
   owner: yup.string().required("Votre nom est requis"),
   // picture: yup.string().url().required("Votre image est requise"),
-  picture: yup.mixed().required("Votre image est requise"),
+  picture: yup.mixed<FileList>().required("Votre image est requise"),
   category: yup.object({
     id: yup.number().required("La catégorie est requise"),
   }),
@@ -25,11 +25,10 @@ type FormType = {
   description: string;
   location: string;
   owner: string;
-  picture: {};
+  picture: FileList;
   price: number;
   title: string;
 };
-type FormTypeWithPicture = FormType & { picture: FileList }
 
 function CreateAd() {
   const router = useRouter();
@@ -42,18 +41,16 @@ function CreateAd() {
     reset,
     setError,
     formState: { errors },
-  } = useForm<FormTypeWithPicture>({
+  } = useForm<FormType>({
     resolver: yupResolver(schema),
   });
 
   const { data, loading } = useListCategoriesQuery();
 
-  const onSubmit = ({ picture, ...data }: FormTypeWithPicture) => {
-    console.log(data);
-    const p = picture as FileList;
-    if (p.length) {
+  const onSubmit = ({ picture, ...data }: FormType) => {
+    if (picture.length) {
       const formData = new FormData();
-      formData.append("file", p[0], p[0].name);
+      formData.append("file", picture[0], picture[0].name);
       axios
         .post("http://localhost:3002/upload", formData)
         .then((result) => {
