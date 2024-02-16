@@ -25,10 +25,11 @@ type FormType = {
   description: string;
   location: string;
   owner: string;
-  picture: string;
+  picture: {};
   price: number;
   title: string;
 };
+type FormTypeWithPicture = FormType & { picture: FileList }
 
 function CreateAd() {
   const router = useRouter();
@@ -41,28 +42,28 @@ function CreateAd() {
     reset,
     setError,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormTypeWithPicture>({
     resolver: yupResolver(schema),
   });
 
   const { data, loading } = useListCategoriesQuery();
 
-  const onSubmit = (data: FormType & { picture: FileList }) => {
+  const onSubmit = ({ picture, ...data }: FormTypeWithPicture) => {
     console.log(data);
-    if (data.picture.length) {
+    const p = picture as FileList;
+    if (p.length) {
       const formData = new FormData();
-      formData.append("file", data.picture[0], data.picture[0].name);
+      formData.append("file", p[0], p[0].name);
       axios
         .post("http://localhost:3002/upload", formData)
         .then((result) => {
           console.log(result);
           createAd({
-            variables: { infos: {...data, picture: result.data.filename} },
+            variables: { infos: { ...data, picture: result.data.filename } },
             onCompleted(data) {
               router.push(`/categories/view/${data.createAd.category.id}`);
             },
           });
-
         })
         .catch((error) => {
           console.log(error);
