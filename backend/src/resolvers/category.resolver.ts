@@ -1,5 +1,8 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import Category, { CategoryCreateInput } from "../entities/Category.entity";
+import Category, {
+  CategoryCreateInput,
+  CategoryWithAdsCounted,
+} from "../entities/Category.entity";
 import CategoryServices from "../services/categories.services";
 
 @Resolver()
@@ -10,10 +13,10 @@ export default class CategoryResolver {
     return categories;
   }
 
-  @Query(() => Category)
+  @Query(() => CategoryWithAdsCounted)
   async findCategory(@Arg("id") id: string) {
-    const category = await new CategoryServices().find(+id);
-    return category;
+    const categoryWithAdsAndCounter = await new CategoryServices().find(+id);
+    return categoryWithAdsAndCounter;
   }
   @Mutation(() => Category)
   async createCategory(@Arg("infos") infos: CategoryCreateInput) {
@@ -30,9 +33,8 @@ export default class CategoryResolver {
   }
 
   @Mutation(() => [Category])
-  async deleteCategory(@Arg("id") id: string){
+  async deleteCategory(@Arg("id") id: string) {
     const categories: Category[] = await new CategoryServices().delete(+id);
     return categories;
-
   }
 }

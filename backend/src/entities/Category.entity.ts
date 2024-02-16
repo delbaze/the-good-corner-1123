@@ -18,6 +18,17 @@ class Category {
   ads: Ad[];
 }
 
+@ObjectType()
+export class CategoryWithAdsCounted {
+  @Field(() => Category)
+  category: Category;
+
+  @Field(() => [Ad])
+  ads: Ad[];
+
+  @Field()
+  count: number;
+}
 @InputType()
 export class CategoryCreateInput {
   @Field()
