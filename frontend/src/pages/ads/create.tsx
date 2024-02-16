@@ -3,6 +3,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "next/router";
 import { useCreateAdMutation, useListCategoriesQuery } from "@/types/graphql";
+import { useState } from "react";
+import Image from "next/image";
+import axios from "axios";
 
 const schema = yup.object({
   title: yup.string().required("Attention, le titre de l'annonce est requis"),
@@ -10,7 +13,8 @@ const schema = yup.object({
   description: yup.string().required("La description est requise"),
   location: yup.string().required("La localité est requise"),
   owner: yup.string().required("Votre nom est requis"),
-  picture: yup.string().url().required("Votre nom est requis"),
+  // picture: yup.string().url().required("Votre image est requise"),
+  picture: yup.mixed().required("Votre image est requise"),
   category: yup.object({
     id: yup.number().required("La catégorie est requise"),
   }),
@@ -30,6 +34,7 @@ function CreateAd() {
   const router = useRouter();
   const [createAd, { loading: loadingAd }] = useCreateAdMutation();
   // const [loading, setLoading] = useState(true);
+  const [preview, setPreview] = useState<string>("");
   const {
     register,
     handleSubmit,
@@ -42,13 +47,27 @@ function CreateAd() {
 
   const { data, loading } = useListCategoriesQuery();
 
-  const onSubmit = (data: FormType) => {
-    createAd({
-      variables: { infos: data },
-      onCompleted(data) {
-        router.push(`/categories/view/${data.createAd.category.id}`);
-      },
-    });
+  const onSubmit = (data: FormType & { picture: FileList }) => {
+    console.log(data);
+    if (data.picture.length) {
+      const formData = new FormData();
+      formData.append("file", data.picture[0], data.picture[0].name);
+      axios
+        .post("http://localhost:3002/upload", formData)
+        .then((result) => {
+          console.log(result);
+          createAd({
+            variables: { infos: {...data, picture: result.data.filename} },
+            onCompleted(data) {
+              router.push(`/categories/view/${data.createAd.category.id}`);
+            },
+          });
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
     //!penser à gérer les erreurs (setError);
   };
 
@@ -73,9 +92,23 @@ function CreateAd() {
           <input {...register("owner")} placeholder="Propriétaire" />
           <p>{errors?.owner?.message}</p>
 
-          <input {...register("picture")} placeholder="Photo" />
+          <input
+            type="file"
+            accept="image/*"
+            {...register("picture", {
+              onChange(e) {
+                console.log("URL", URL.createObjectURL(e.target.files[0]));
+                setPreview(URL.createObjectURL(e.target.files[0]));
+              },
+            })}
+            placeholder="Photo"
+          />
           <p>{errors?.picture?.message}</p>
-
+          {preview && (
+            <div>
+              <Image src={preview} alt="preview" width={50} height={50} />
+            </div>
+          )}
           <select {...register("category.id")}>
             <option>Choisissez votre catégorie</option>
             {data?.listCategories.map((c) => (

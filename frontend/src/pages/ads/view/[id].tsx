@@ -28,12 +28,13 @@ function AdDetails() {
           <p>Localité : {data?.findAd.location}</p>
           <p>Créé le : {new Date(+data?.findAd.createdAt).toLocaleString()}</p>
           <div>
-            <Image
+            
+            <img
               width={50}
               height={50}
               alt={data?.findAd.title}
-              src={data?.findAd.picture}
-            />
+              src={`http://localhost:3002${data?.findAd.picture}`}
+              />
           </div>
         </>
       ) : (

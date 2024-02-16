@@ -8,8 +8,8 @@ function AdCard({ ad }: { ad: FindCategoryQuery["findCategory"]["ads"][0]}) {
     <div key={ad.id} className={styles.adCard}>
       <div>{ad.title}</div>
       <div>{ad.price}</div>
-      <Image
-        src={ad.picture}
+      <img
+        src={`http://localhost:3002${ad.picture}`}
         alt={ad.title}
         width={50}
         height={50}

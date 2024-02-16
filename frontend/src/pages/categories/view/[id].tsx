@@ -6,7 +6,9 @@ import { useEffect } from "react";
 function CategoryAds() {
   const router = useRouter();
   // const [findCategory, {data, loading, error}] = useLazyQuery<FindCategoryQuery, FindCategoryQueryVariables>(FIND_CATEGORY)
-  const [findCategory, {data, loading}] = useFindCategoryLazyQuery()
+  const [findCategory, {data, loading}] = useFindCategoryLazyQuery({
+    fetchPolicy: "no-cache"
+  })
   useEffect(() => {
     if (router.isReady) {
       findCategory({variables: {findCategoryId: router.query.id as string}})

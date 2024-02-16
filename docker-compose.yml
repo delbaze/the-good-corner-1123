@@ -62,7 +62,7 @@ services:
     volumes:
       - ./images/uploads:/app/uploads
     ports:
-      - 6000:6000
+      - 3002:3002
     env_file:
       - ./.env
 volumes:
