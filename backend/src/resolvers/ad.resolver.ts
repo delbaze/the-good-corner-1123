@@ -19,6 +19,7 @@ export default class AdResolver {
 
   @Mutation(() => Ad)
   async createAd(@Arg("infos") infos: AdCreateInput) {
+    console.log('INFOS', infos);
     const result: Ad = await new AdServices().create(infos);
     return result;
   }

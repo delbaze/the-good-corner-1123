@@ -40,7 +40,8 @@ function CreateAd() {
     handleSubmit,
     reset,
     setError,
-    formState: { errors },
+    
+    formState: { errors, },
   } = useForm<FormType>({
     resolver: yupResolver(schema),
   });
@@ -58,6 +59,7 @@ function CreateAd() {
           createAd({
             variables: { infos: { ...data, picture: result.data.filename } },
             onCompleted(data) {
+              console.log('%c⧭', 'color: #00bf00', data);
               router.push(`/categories/view/${data.createAd.category.id}`);
             },
           });

@@ -12,13 +12,16 @@ export const LIST_CATEGORIES = gql`
 export const FIND_CATEGORY = gql`
   query FindCategory($findCategoryId: String!) {
     findCategory(id: $findCategoryId) {
-      id
-      name
       ads {
         id
         title
         price
         picture
+      }
+      count
+      category {
+        id
+        name
       }
     }
   }

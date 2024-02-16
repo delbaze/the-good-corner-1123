@@ -20,12 +20,26 @@ class CategoryServices {
   }
 
   async find(id: number) {
+    // const categoryTest = await this.db
+    //   .createQueryBuilder("c")
+    //   .leftJoinAndSelect("c.ads", "ads")
+    //   .addSelect("COUNT(ads)", "count")
+    //   .where("c.id = :id", { id })
+    //   .groupBy("c.id")
+    //   .addGroupBy("ads.id")
+    //   .getRawMany();
+    // //traiter ensuite les données ici
+
+    // console.log("categoryTest", categoryTest);
+
     const category = await this.db.findOneBy({ id });
     if (!category) {
       throw new Error("La catégorie n'existe pas");
     }
-    const ads = await this.dbAds.findAndCountBy({
-      category: { id: category.id },
+    const ads = await this.dbAds.findAndCount({
+      where: { category: { id: category.id } },
+      skip: 2,
+      take: 2
     });
     if (!category) {
       throw new Error("La catégorie n'existe pas");

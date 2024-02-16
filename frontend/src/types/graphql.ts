@@ -65,6 +65,13 @@ export type CategoryCreateInput = {
   name: Scalars['String']['input'];
 };
 
+export type CategoryWithAdsCounted = {
+  __typename?: 'CategoryWithAdsCounted';
+  ads: Array<Ad>;
+  category: Category;
+  count: Scalars['Float']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createAd: Ad;
@@ -133,7 +140,7 @@ export type PartialCategoryInput = {
 export type Query = {
   __typename?: 'Query';
   findAd: Ad;
-  findCategory: Category;
+  findCategory: CategoryWithAdsCounted;
   findTag: Tag;
   listAds: Array<Ad>;
   listCategories: Array<Category>;
@@ -212,7 +219,7 @@ export type FindCategoryQueryVariables = Exact<{
 }>;
 
 
-export type FindCategoryQuery = { __typename?: 'Query', findCategory: { __typename?: 'Category', id: string, name: string, ads: Array<{ __typename?: 'Ad', id: string, title: string, price: number, picture: string }> } };
+export type FindCategoryQuery = { __typename?: 'Query', findCategory: { __typename?: 'CategoryWithAdsCounted', count: number, ads: Array<{ __typename?: 'Ad', id: string, title: string, price: number, picture: string }>, category: { __typename?: 'Category', id: string, name: string } } };
 
 
 export const CreateAdDocument = gql`
@@ -417,13 +424,16 @@ export type ListCategoriesQueryResult = Apollo.QueryResult<ListCategoriesQuery, 
 export const FindCategoryDocument = gql`
     query FindCategory($findCategoryId: String!) {
   findCategory(id: $findCategoryId) {
-    id
-    name
     ads {
       id
       title
       price
       picture
+    }
+    count
+    category {
+      id
+      name
     }
   }
 }

@@ -13,13 +13,13 @@ class AdServices {
     this.dbTag = datasource.getRepository(Tag);
   }
   async create(data: AdCreateInput) {
-    const category = await new CategoryServices().find(+data.category.id);
+    const { category } = await new CategoryServices().find(+data.category.id);
     let tags: Tag[] = [];
     if (data?.tags?.length) {
       tags = await new TagsServices().list(data.tags);
     }
     const newAd = this.db.create({ ...data, category, tags }); //newAd attend une categorie. Si la catégorie n'est pas trouvée, le find juste au dessus lèvera une erreur, sinon nous arriverons ici
-     return await this.db.save(newAd);
+    return await this.db.save(newAd);
   }
   async list(search?: string) {
     return await this.db.find({
@@ -51,10 +51,7 @@ class AdServices {
     return await this.list();
   }
 
-  async update(
-    id: number,
-    { tags, ...data }: Partial<AdCreateInput>
-  ) {
+  async update(id: number, { tags, ...data }: Partial<AdCreateInput>) {
     const ad = await this.find(id);
     const newInfos = this.db.merge(ad, data); // petite info, le merge permet d'ignorer les clés qui n'existent pas dans l'entité! vous voyez l'intéret d'un ORM? Tout est lié
     let listTags: Tag[] = [];
