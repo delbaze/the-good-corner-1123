@@ -8,19 +8,17 @@ app.use(cors());
 
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function (_, __, cb) {
     cb(null, path.join(__dirname, "../uploads"));
   },
-  filename: function (req, file, cb) {
+  filename: function (_, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     cb(null, file.fieldname + "-" + uniqueSuffix + "-" + file.originalname);
   },
 });
 const upload = multer({ storage: storage });
 
-app.post("/upload", upload.single("file"), (req: any, res: Response) => {
-  console.log("req file", req.file);
-  console.log("req body", req.body);
+app.post("/upload", upload.single("file"), (req: Request, res: Response) => {
   fs.readFile(`${req.file?.path}`, (err) => {
     if (err) {
       console.log("Error", err);
@@ -46,6 +44,7 @@ app.get("/files/:filename", (req, res) => {
       res.end();
     } else {
       res.writeHead(200, {"Content-Type": "application/octet-stream"})
+      //res.sendFile() => alternative
       res.write(data);
       res.end()
     }
